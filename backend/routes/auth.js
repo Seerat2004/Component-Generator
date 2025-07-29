@@ -21,10 +21,18 @@ router.post('/signup', async (req, res) => {
     }
 
     // Create user
+    console.log('Creating user with data:', { name, email, password: '***' });
+    
     const user = await User.create({
       name,
       email,
       password
+    });
+
+    console.log('User created successfully:', { 
+      _id: user._id, 
+      name: user.name, 
+      email: user.email 
     });
 
     if (user) {

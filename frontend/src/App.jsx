@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Features from './pages/Features';
 import Playground from './pages/Playground';
 import About from './pages/About';
+import Contact from './pages/Contact';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -55,6 +56,7 @@ export default function App() {
               <Route path="/" element={<Home mode={mode} setMode={setMode} />} />
               <Route path="/features" element={<Features />} />
               <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route 

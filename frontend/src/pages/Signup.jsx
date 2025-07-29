@@ -19,7 +19,7 @@ export default function Signup() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      const from = location.state?.from?.pathname || '/playground';
+      const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, navigate, location]);
@@ -33,7 +33,7 @@ export default function Signup() {
     e.preventDefault();
     const result = await signup(name, email, password);
     if (result.success) {
-      const from = location.state?.from?.pathname || '/playground';
+      const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     }
   };

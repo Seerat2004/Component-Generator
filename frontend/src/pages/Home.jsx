@@ -7,6 +7,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import StarIcon from '@mui/icons-material/Star';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import useAuthStore from '../store/authStore';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -25,6 +27,37 @@ export default function Home({ mode }) {
   const isDark = mode === 'dark';
   const sectionBg = (light, dark) => (isDark ? dark : light);
   const sectionText = (light, dark) => (isDark ? dark : light);
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuthStore();
+
+  const handleTryPlayground = () => {
+    if (isAuthenticated) {
+      navigate('/playground');
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const handleBookDemo = () => {
+    // Open demo booking in new tab or navigate to contact page
+    window.open('mailto:demo@acciojobs.com?subject=Book Demo - AccioJobs Playground', '_blank');
+  };
+
+  const handleViewComponents = () => {
+    if (isAuthenticated) {
+      navigate('/playground');
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const handleViewPages = () => {
+    if (isAuthenticated) {
+      navigate('/playground');
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -52,12 +85,22 @@ export default function Home({ mode }) {
             </motion.div>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 4, justifyContent: { xs: 'center', md: 'flex-start' }, width: { xs: '100%', md: 'auto' } }}>
               <motion.div initial="hidden" animate="visible" variants={fadeInUp} custom={3}>
-                <Button variant="contained" size="large" sx={{ borderRadius: 8, fontWeight: 700, bgcolor: '#246bfd', color: '#fff', px: 4, boxShadow: '0 4px 16px 0 #246bfd22', '&:hover': { bgcolor: '#1a4db8' } }}>
+                <Button 
+                  variant="contained" 
+                  size="large" 
+                  onClick={handleTryPlayground}
+                  sx={{ borderRadius: 8, fontWeight: 700, bgcolor: '#246bfd', color: '#fff', px: 4, boxShadow: '0 4px 16px 0 #246bfd22', '&:hover': { bgcolor: '#1a4db8' } }}
+                >
                   Try Playground
                 </Button>
               </motion.div>
               <motion.div initial="hidden" animate="visible" variants={fadeInUp} custom={4}>
-                <Button variant="outlined" size="large" sx={{ borderRadius: 8, fontWeight: 700, px: 4, bgcolor: '#fff', borderColor: '#246bfd', color: '#246bfd', '&:hover': { bgcolor: '#eaf1ff', borderColor: '#1a4db8', color: '#1a4db8' } }}>
+                <Button 
+                  variant="outlined" 
+                  size="large" 
+                  onClick={handleBookDemo}
+                  sx={{ borderRadius: 8, fontWeight: 700, px: 4, bgcolor: '#fff', borderColor: '#246bfd', color: '#246bfd', '&:hover': { bgcolor: '#eaf1ff', borderColor: '#1a4db8', color: '#1a4db8' } }}
+                >
                   Book a Demo
                 </Button>
               </motion.div>
@@ -68,14 +111,26 @@ export default function Home({ mode }) {
               <Paper elevation={4} sx={{ p: 3, borderRadius: 4, mb: 3, minWidth: 280, maxWidth: 340, background: 'linear-gradient(135deg, #246bfd 60%, #7c3aed 100%)', color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>COMPONENTS</Typography>
                 <Typography sx={{ mb: 2 }}>Generate, preview, and export React components instantly!</Typography>
-                <Button variant="contained" sx={{ bgcolor: '#fff', color: '#246bfd', fontWeight: 700, borderRadius: 2, boxShadow: 'none', '&:hover': { bgcolor: '#eaf1ff' } }}>View Components</Button>
+                <Button 
+                  variant="contained" 
+                  onClick={handleViewComponents}
+                  sx={{ bgcolor: '#fff', color: '#246bfd', fontWeight: 700, borderRadius: 2, boxShadow: 'none', '&:hover': { bgcolor: '#eaf1ff' } }}
+                >
+                  View Components
+                </Button>
               </Paper>
             </motion.div>
             <motion.div initial="hidden" animate="visible" variants={fadeInUp} custom={6}>
               <Paper elevation={4} sx={{ p: 3, borderRadius: 4, minWidth: 280, maxWidth: 340, background: 'linear-gradient(135deg, #7c3aed 60%, #246bfd 100%)', color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>PAGES</Typography>
                 <Typography sx={{ mb: 2 }}>Build full pages with AI and export them for your projects!</Typography>
-                <Button variant="contained" sx={{ bgcolor: '#fff', color: '#7c3aed', fontWeight: 700, borderRadius: 2, boxShadow: 'none', '&:hover': { bgcolor: '#f3e6fa' } }}>View Pages</Button>
+                <Button 
+                  variant="contained" 
+                  onClick={handleViewPages}
+                  sx={{ bgcolor: '#fff', color: '#7c3aed', fontWeight: 700, borderRadius: 2, boxShadow: 'none', '&:hover': { bgcolor: '#f3e6fa' } }}
+                >
+                  View Pages
+                </Button>
               </Paper>
             </motion.div>
           </Box>
@@ -113,7 +168,7 @@ export default function Home({ mode }) {
             }, {
               icon: <DownloadIcon sx={{ fontSize: 48, color: '#7c3aed', mb: 2 }} />, title: 'Export & Download', desc: 'Copy or download your code as a .zip file for easy integration into your projects.'
             }].map((feature, i) => (
-              <Grid sx={{ gridColumn: 'span 6' }} key={feature.title} sx={{ display: 'flex', justifyContent: 'center', gridColumn: 'span 6' }}>
+              <Grid sx={{ gridColumn: 'span 6', display: 'flex', justifyContent: 'center' }} key={feature.title}>
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} custom={i} style={{ width: '100%', maxWidth: 420, margin: '0 auto' }}>
                   <Paper elevation={3} sx={{ p: 4, borderRadius: 4, textAlign: 'center', minHeight: 200, boxShadow: '0 4px 24px 0 #eaf1ff', bgcolor: '#fff', color: '#18191A', display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: `4px solid ${i % 2 === 0 ? '#246bfd' : '#7c3aed'}` }}>
                     {feature.icon}

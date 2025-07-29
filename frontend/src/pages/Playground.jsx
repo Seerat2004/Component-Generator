@@ -226,7 +226,9 @@ export default function Playground() {
                           }}
                         >
                           <Typography variant="body2">
-                            {message.content}
+                            {message.role === 'assistant' && /```/.test(message.content)
+                              ? 'Component code successfully constructed! Refer to the code tabs below.'
+                              : message.content}
                           </Typography>
                         </Paper>
                       </Box>
@@ -309,20 +311,13 @@ export default function Playground() {
               <Box sx={{ minHeight: 200, bgcolor: '#f8f9fa', borderRadius: 2, mb: 2, p: 2 }}>
                 {generatedCode.jsx ? (
                   <Box sx={{ 
-                    border: '1px solid #e0e0e0', 
-                    borderRadius: 1, 
-                    p: 2, 
-                    bgcolor: '#fff',
-                    minHeight: 180
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    height: 180,
+                    color: 'text.secondary'
                   }}>
-                    <div dangerouslySetInnerHTML={{ 
-                      __html: `
-                        <style>${generatedCode.css}</style>
-                        <div id="preview-container">
-                          ${generatedCode.jsx.replace(/<script>.*?<\/script>/gs, '')}
-                        </div>
-                      `
-                    }} />
+                    <Typography variant="h6">Component code successfully constructed! Refer to the code tabs below.</Typography>
                   </Box>
                 ) : (
                   <Box sx={{ 

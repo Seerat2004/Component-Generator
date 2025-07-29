@@ -33,8 +33,10 @@ export default function Navbar({ mode, setMode }) {
           <Typography variant="h6" sx={{ fontWeight: 700, color: sectionText('#18191A', '#fff'), letterSpacing: 1 }}>AccioJobs Playground</Typography>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center">
+          <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/')}>Home</Button>
           <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/features')}>Features</Button>
           <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/about')}>About</Button>
+          <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/contact')}>Contact</Button>
           
           {isAuthenticated ? (
             <>

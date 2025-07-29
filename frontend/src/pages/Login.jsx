@@ -18,7 +18,7 @@ export default function Login() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      const from = location.state?.from?.pathname || '/playground';
+      const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, navigate, location]);
@@ -32,7 +32,7 @@ export default function Login() {
     e.preventDefault();
     const result = await login(email, password);
     if (result.success) {
-      const from = location.state?.from?.pathname || '/playground';
+      const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     }
   };

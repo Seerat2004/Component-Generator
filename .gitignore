@@ -1,0 +1,86 @@
+# Node
+node_modules/
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build output
+/dist
+/build
+/.next
+/.vercel
+
+# Vite
+.vite
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Misc
+*.local
+*.cache
+*.log
+
+# Coverage
+coverage/
+
+# MongoDB
+*.lock
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Backend
+backend/node_modules/
+backend/dist/
+backend/coverage/
+
+# Others
+*.tgz
+*.gz
+
+# Ignore test output
+*.test.js.snap
+
+# Ignore PowerShell history
+*.pshistory
+
+# Ignore Mac system files
+Icon?
+
+# Ignore Windows system files
+Desktop.ini
+$RECYCLE.BIN/
+
+# Ignore Python cache (if any)
+__pycache__/
+*.pyc
+
+# Ignore JetBrains IDEs
+*.iml
+.idea/
+
+# Ignore local database files
+*.db
+*.sqlite
+
+# Ignore backup files
+*.bak
+*.tmp
+
+# Ignore environment files
+backend/.env
+frontend/.env 
