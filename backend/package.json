@@ -20,9 +20,13 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "openai": "^5.10.2",
+    "@google/generative-ai": "^0.21.0",
     "redis": "^4.6.11"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

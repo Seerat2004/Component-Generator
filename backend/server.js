@@ -4,93 +4,91 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 // Load environment variables
-dotenv.config({ path: __dirname + '/.env' });
-
-// Check if JWT_SECRET is loaded
-if (!process.env.JWT_SECRET) {
-  console.error('JWT_SECRET is not set in environment variables!');
-  console.log('Available env vars:', Object.keys(process.env).filter(key => key.includes('JWT') || key.includes('MONGO') || key.includes('PORT')));
-  process.exit(1);
-}
-
-// Check for OpenAI API key
-if (!process.env.OPENAI_API_KEY) {
-  console.warn('⚠️  OPENAI_API_KEY is not set. AI features will use mock responses.');
-  console.warn('   To enable live AI, add your OpenAI API key to the .env file');
-}
-
-console.log('Environment loaded successfully');
-console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'SET' : 'NOT SET');
-console.log('MONGO_URI:', process.env.MONGO_URI);
-console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'SET' : 'NOT SET');
-console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? 'SET' : 'NOT SET');
-console.log('PORT:', process.env.PORT);
+dotenv.config();
 
 const app = express();
 
 // Middleware
+app.use(express.json());
 app.use(cors({
   origin: [
-    'http://localhost:5173', 
-    'http://localhost:5174', 
-    'http://127.0.0.1:5173', 
-    'http://127.0.0.1:5174',
-    'https://your-frontend-app.vercel.app'  // We'll update this with actual URL
-  ],
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://your-frontend-app.vercel.app', // Replace with your actual Vercel URL
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Import routes
-const authRoutes = require('./routes/auth');
-const sessionRoutes = require('./routes/session');
-const aiRoutes = require('./routes/ai');
+// Log environment variables for debugging
+console.log('Environment Variables:');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('PORT:', process.env.PORT);
+console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'Set' : 'Not set');
+console.log('MONGO_URI:', process.env.MONGO_URI ? 'Set' : 'Not set');
+console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'Set' : 'Not set');
+console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? 'Set' : 'Not set');
+console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
 
-// Use routes
-app.use('/api/auth', authRoutes);
-app.use('/api/session', sessionRoutes);
-app.use('/api/ai', aiRoutes);
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-// Health check route
-app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    message: 'AccioJobs Playground API is running',
-    database: {
-      connected: mongoose.connection.readyState === 1,
-      databaseName: mongoose.connection.db?.databaseName,
-      collections: Object.keys(mongoose.connection.collections)
-    }
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/session', require('./routes/session'));
+app.use('/api/ai', require('./routes/ai'));
+
+// Health check endpoint
+app.get('/api/health', async (req, res) => {
+  try {
+    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+    const collections = await mongoose.connection.db.listCollections().toArray();
+    
+    res.json({
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      database: dbStatus,
+      collections: collections.map(col => col.name),
+      environment: process.env.NODE_ENV || 'development'
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message
+    });
+  }
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'AccioJobs Backend API',
+    version: '1.0.0',
+    status: 'running',
+    timestamp: new Date().toISOString()
   });
 });
 
-// Connect to MongoDB
-const connectDB = async () => {
-  try {
-    const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/acciojobs_playground';
-    console.log('Connecting to MongoDB...');
-    console.log('MongoDB URI:', mongoURI.replace(/\/\/[^:]+:[^@]+@/, '//***:***@')); // Hide credentials
-    
-    await mongoose.connect(mongoURI);
-    console.log('MongoDB connected successfully');
-    console.log('Database name:', mongoose.connection.db.databaseName);
-    console.log('Connection state:', mongoose.connection.readyState);
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    process.exit(1);
-  }
-};
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!' });
+});
 
-// Start server
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
 const PORT = process.env.PORT || 5000;
 
-const startServer = async () => {
-  await connectDB();
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log(`Health check: http://localhost:${PORT}/api/health`);
-  });
-};
-
-startServer(); 
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  
+  if (!process.env.OPENAI_API_KEY && !process.env.GEMINI_API_KEY) {
+    console.warn('⚠️  Warning: No AI API keys configured. AI features will use mock responses.');
+  }
+}); 
