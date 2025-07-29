@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, TextField, Typography, Paper, Stack, Link, CircularProgress, Alert } from '@mui/material';
+import { Box, Button, TextField, Typography, Paper, Stack, Link, CircularProgress, Alert, InputAdornment, IconButton } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import MeteorShower from '../components/MeteorShower';
 import useAuthStore from '../store/authStore';
 
@@ -9,6 +11,7 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { signup, loading, error, clearError, isAuthenticated } = useAuthStore();
@@ -82,12 +85,25 @@ export default function Signup() {
               />
               <TextField 
                 label="Password" 
-                type="password" 
+                type={showPassword ? "text" : "password"}
                 value={password} 
                 onChange={e => setPassword(e.target.value)} 
                 required 
                 fullWidth 
                 disabled={loading}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                        disabled={loading}
+                      >
+                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <Button 
                 type="submit" 

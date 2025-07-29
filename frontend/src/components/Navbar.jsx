@@ -34,7 +34,6 @@ export default function Navbar({ mode, setMode }) {
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center">
           <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/features')}>Features</Button>
-          <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/playground')}>Playground</Button>
           <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/about')}>About</Button>
           
           {isAuthenticated ? (
