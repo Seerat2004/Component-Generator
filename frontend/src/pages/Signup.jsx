@@ -1,0 +1,114 @@
+import React, { useState, useEffect } from 'react';
+import { Box, Button, TextField, Typography, Paper, Stack, Link, CircularProgress, Alert } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import MeteorShower from '../components/MeteorShower';
+import useAuthStore from '../store/authStore';
+
+export default function Signup() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { signup, loading, error, clearError, isAuthenticated } = useAuthStore();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      const from = location.state?.from?.pathname || '/playground';
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, location]);
+
+  // Clear error when component mounts
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await signup(name, email, password);
+    if (result.success) {
+      const from = location.state?.from?.pathname || '/playground';
+      navigate(from, { replace: true });
+    }
+  };
+
+  return (
+    <Box sx={{ position: 'relative', width: '100vw', overflow: 'hidden', py: 8 }}>
+      <motion.div
+        initial={{ backgroundPosition: '100% 50%' }}
+        animate={{ backgroundPosition: ['100% 50%', '0% 50%', '100% 50%'] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(120deg, #f7e7e1 0%, #eaf1ff 50%, #246bfd 100%)',
+          backgroundSize: '200% 200%',
+          zIndex: 0,
+        }}
+      />
+      <MeteorShower />
+      <Box sx={{ position: 'relative', zIndex: 2, width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+        <Paper elevation={4} sx={{ p: 5, borderRadius: 4, minWidth: 340, maxWidth: 400, width: '100%' }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, textAlign: 'center', color: '#246bfd' }}>Sign Up</Typography>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={3}>
+              <TextField 
+                label="Name" 
+                value={name} 
+                onChange={e => setName(e.target.value)} 
+                required 
+                fullWidth 
+                disabled={loading}
+              />
+              <TextField 
+                label="Email" 
+                type="email" 
+                value={email} 
+                onChange={e => setEmail(e.target.value)} 
+                required 
+                fullWidth 
+                disabled={loading}
+              />
+              <TextField 
+                label="Password" 
+                type="password" 
+                value={password} 
+                onChange={e => setPassword(e.target.value)} 
+                required 
+                fullWidth 
+                disabled={loading}
+              />
+              <Button 
+                type="submit" 
+                variant="contained" 
+                color="primary" 
+                fullWidth 
+                disabled={loading} 
+                sx={{ fontWeight: 700, borderRadius: 2, py: 1.5 }}
+              >
+                {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign Up'}
+              </Button>
+              <Typography sx={{ textAlign: 'center' }}>
+                Already have an account?{' '}
+                <Link href="/login" underline="hover" color="primary">
+                  Login
+                </Link>
+              </Typography>
+            </Stack>
+          </form>
+        </Paper>
+      </Box>
+    </Box>
+  );
+} 
