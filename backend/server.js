@@ -46,10 +46,15 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+// Import routes
+const authRoutes = require('./routes/auth');
+const sessionRoutes = require('./routes/session');
+const aiRoutes = require('./routes/ai');
+
 // Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/session', require('./routes/session'));
-app.use('/api/ai', require('./routes/ai'));
+app.use('/api/auth', authRoutes);
+app.use('/api/session', sessionRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
