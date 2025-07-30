@@ -14,7 +14,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:5174',
-    'https://your-frontend-app.vercel.app', // Replace with your actual Vercel URL
+    'https://component-generator-smoky.vercel.app', // Your actual Vercel URL
     process.env.FRONTEND_URL
   ].filter(Boolean),
   credentials: true
