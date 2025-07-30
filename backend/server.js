@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
 // Load environment variables
@@ -10,33 +11,21 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(cookieParser()); // ✅ Parse cookies for JWT authentication
 
-// Enhanced CORS configuration with better logging
+// ✅ Proper CORS configuration for Vercel frontend
 const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'https://component-generator-smoky.vercel.app',
-      'https://component-generator.vercel.app',
-      process.env.FRONTEND_URL
-    ].filter(Boolean);
-    
-    console.log('CORS Check - Origin:', origin);
-    console.log('CORS Check - Allowed Origins:', allowedOrigins);
-    
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      console.log('CORS Blocked - Origin not allowed:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://component-generator-smoky.vercel.app',
+    'https://component-generator.vercel.app',
+    'https://component-generator-seerat2004s-projects.vercel.app',
+    'https://component-generator-4hdeiw2fw-seerat2004s-projects.vercel.app',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true, // Needed for JWT cookies/sessions
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
 
@@ -81,6 +70,8 @@ app.get('/api/health', async (req, res) => {
           'http://localhost:5174',
           'https://component-generator-smoky.vercel.app',
           'https://component-generator.vercel.app',
+          'https://component-generator-seerat2004s-projects.vercel.app',
+          'https://component-generator-4hdeiw2fw-seerat2004s-projects.vercel.app',
           process.env.FRONTEND_URL
         ].filter(Boolean)
       }

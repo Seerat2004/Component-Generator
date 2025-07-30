@@ -36,13 +36,23 @@ router.post('/signup', async (req, res) => {
     });
 
     if (user) {
+      const token = generateToken(user._id);
+      
+      // ✅ Set HTTP-only cookie for better security
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // true in production
+        sameSite: 'none', // Required for cross-origin requests
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+      });
+
       res.status(201).json({
         success: true,
         data: {
           _id: user._id,
           name: user.name,
           email: user.email,
-          token: generateToken(user._id)
+          token: token // Still include in response for client-side storage
         }
       });
     }
@@ -85,13 +95,23 @@ router.post('/login', async (req, res) => {
     user.lastLogin = Date.now();
     await user.save();
 
+    const token = generateToken(user._id);
+    
+    // ✅ Set HTTP-only cookie for better security
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // true in production
+      sameSite: 'none', // Required for cross-origin requests
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
     res.json({
       success: true,
       data: {
         _id: user._id,
         name: user.name,
         email: user.email,
-        token: generateToken(user._id)
+        token: token // Still include in response for client-side storage
       }
     });
   } catch (error) {
@@ -155,6 +175,24 @@ router.put('/profile', protect, async (req, res) => {
       error: error.message
     });
   }
+});
+
+// @desc    Logout user
+// @route   POST /api/auth/logout
+// @access  Private
+router.post('/logout', (req, res) => {
+  // ✅ Clear the HTTP-only cookie
+  res.cookie('token', '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+    expires: new Date(0) // Expire immediately
+  });
+
+  res.json({
+    success: true,
+    message: 'Logged out successfully'
+  });
 });
 
 module.exports = router; 
