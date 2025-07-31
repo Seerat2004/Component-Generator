@@ -14,6 +14,10 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, loading, error, clearError, isAuthenticated } = useAuthStore();
+  
+  // Get current theme mode from localStorage
+  const mode = localStorage.getItem('themeMode') || 'light';
+  const isDark = mode === 'dark';
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -49,14 +53,16 @@ export default function Login() {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(120deg, #eaf1ff 0%, #f7e7e1 50%, #246bfd 100%)',
+          background: isDark 
+            ? 'linear-gradient(120deg, #18191A 0%, #232336 50%, #246bfd 100%)'
+            : 'linear-gradient(120deg, #eaf1ff 0%, #f7e7e1 50%, #246bfd 100%)',
           backgroundSize: '200% 200%',
           zIndex: 0,
         }}
       />
       <MeteorShower />
       <Box sx={{ position: 'relative', zIndex: 2, width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-        <Paper elevation={4} sx={{ p: 5, borderRadius: 4, minWidth: 340, maxWidth: 400, width: '100%' }}>
+        <Paper elevation={4} sx={{ p: 5, borderRadius: 4, minWidth: 340, maxWidth: 400, width: '100%', bgcolor: isDark ? '#232336' : '#fff', color: isDark ? '#fff' : '#18191A' }}>
           <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, textAlign: 'center', color: '#246bfd' }}>Login</Typography>
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>

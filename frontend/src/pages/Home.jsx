@@ -155,7 +155,7 @@ export default function Home({ mode }) {
       {/* Features Section */}
       <Box sx={{ bgcolor: sectionBg('#fff', '#18191A'), width: '100vw' }}>
         <Container maxWidth="xl" sx={{ width: '100%', py: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 800, mb: 6, letterSpacing: -0.5, color: '#18191A', textAlign: 'center' }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, mb: 6, letterSpacing: -0.5, color: sectionText('#18191A', '#fff'), textAlign: 'center' }}>
             Elevate your workflow with powerful features
           </Typography>
           <Grid container columns={12} spacing={4} justifyContent="center" alignItems="center">
@@ -170,10 +170,10 @@ export default function Home({ mode }) {
             }].map((feature, i) => (
               <Grid sx={{ gridColumn: 'span 6', display: 'flex', justifyContent: 'center' }} key={feature.title}>
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} custom={i} style={{ width: '100%', maxWidth: 420, margin: '0 auto' }}>
-                  <Paper elevation={3} sx={{ p: 4, borderRadius: 4, textAlign: 'center', minHeight: 200, boxShadow: '0 4px 24px 0 #eaf1ff', bgcolor: '#fff', color: '#18191A', display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: `4px solid ${i % 2 === 0 ? '#246bfd' : '#7c3aed'}` }}>
+                  <Paper elevation={3} sx={{ p: 4, borderRadius: 4, textAlign: 'center', minHeight: 200, boxShadow: isDark ? '0 4px 24px 0 rgba(0,0,0,0.3)' : '0 4px 24px 0 #eaf1ff', bgcolor: sectionBg('#fff', '#232336'), color: sectionText('#18191A', '#fff'), display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: `4px solid ${i % 2 === 0 ? '#246bfd' : '#7c3aed'}` }}>
                     {feature.icon}
-                    <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>{feature.title}</Typography>
-                    <Typography color="#636e72">{feature.desc}</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, color: sectionText('#18191A', '#fff') }}>{feature.title}</Typography>
+                    <Typography color={sectionText('#636e72', '#eaf1ff')}>{feature.desc}</Typography>
                   </Paper>
                 </motion.div>
               </Grid>
@@ -188,7 +188,7 @@ export default function Home({ mode }) {
           <Typography variant="h4" sx={{ fontWeight: 800, mb: 6, letterSpacing: -0.5, color: '#fff', textAlign: 'center' }}>
             How It Works
           </Typography>
-          <Paper elevation={4} sx={{ p: { xs: 3, md: 6 }, borderRadius: 6, bgcolor: '#fff', maxWidth: 600, width: '100%', boxShadow: '0 8px 32px 0 #246bfd33', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Paper elevation={4} sx={{ p: { xs: 3, md: 6 }, borderRadius: 6, bgcolor: sectionBg('#fff', '#232336'), maxWidth: 600, width: '100%', boxShadow: isDark ? '0 8px 32px 0 rgba(36, 107, 253, 0.2)' : '0 8px 32px 0 #246bfd33', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {[{
               icon: <AutoAwesomeIcon sx={{ fontSize: 36, color: '#246bfd' }} />, title: 'Start a Session', desc: 'Sign up or log in to create a new session or resume previous work.'
             }, {
@@ -204,8 +204,8 @@ export default function Home({ mode }) {
                   {i < arr.length - 1 && <Box sx={{ width: 4, height: 40, bgcolor: '#eaf1ff', borderRadius: 2, mt: 1 }} />}
                 </Box>
                 <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#18191A', mb: 0.5 }}>{step.title}</Typography>
-                  <Typography sx={{ color: '#636e72', fontSize: 15 }}>{step.desc}</Typography>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: sectionText('#18191A', '#fff'), mb: 0.5 }}>{step.title}</Typography>
+                  <Typography sx={{ color: sectionText('#636e72', '#eaf1ff'), fontSize: 15 }}>{step.desc}</Typography>
                 </Box>
               </Box>
             ))}
@@ -216,25 +216,25 @@ export default function Home({ mode }) {
       {/* Testimonials Section */}
       <Box sx={{ bgcolor: sectionBg('#fff', '#18191A'), py: 10, width: '100vw' }}>
         <Container maxWidth="xl" sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 800, mb: 6, letterSpacing: -0.5, color: '#18191A', textAlign: 'center' }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, mb: 6, letterSpacing: -0.5, color: sectionText('#18191A', '#fff'), textAlign: 'center' }}>
             Trusted by Developers
           </Typography>
           <Grid container columns={12} spacing={4} justifyContent="center" alignItems="center">
             {[1, 2, 3].map((i) => (
               <Grid sx={{ gridColumn: 'span 4', display: 'flex', justifyContent: 'center' }} key={i}>
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} custom={i} style={{ width: '100%', maxWidth: 380, margin: '0 auto' }}>
-                  <Paper elevation={3} sx={{ p: 4, borderRadius: 4, minHeight: 200, boxShadow: '0 4px 24px 0 #eaf1ff', bgcolor: '#fff', color: '#18191A', display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: '4px solid #246bfd' }}>
+                  <Paper elevation={3} sx={{ p: 4, borderRadius: 4, minHeight: 200, boxShadow: isDark ? '0 4px 24px 0 rgba(0,0,0,0.3)' : '0 4px 24px 0 #eaf1ff', bgcolor: sectionBg('#fff', '#232336'), color: sectionText('#18191A', '#fff'), display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: '4px solid #246bfd' }}>
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2, justifyContent: 'center' }}>
                       <Avatar src={`https://randomuser.me/api/portraits/men/${30 + i}.jpg`} />
                       <Box>
-                        <Typography sx={{ fontWeight: 700, textAlign: 'center' }}>{`John Doe ${i}`}</Typography>
+                        <Typography sx={{ fontWeight: 700, textAlign: 'center', color: sectionText('#18191A', '#fff') }}>{`John Doe ${i}`}</Typography>
                         <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="center">
                           <StarIcon sx={{ color: '#246bfd', fontSize: 18 }} />
-                          <Typography sx={{ fontWeight: 600 }}>5.0</Typography>
+                          <Typography sx={{ fontWeight: 600, color: sectionText('#18191A', '#fff') }}>5.0</Typography>
                         </Stack>
                       </Box>
                     </Stack>
-                    <Typography color="#636e72" sx={{ textAlign: 'center' }}>
+                    <Typography color={sectionText('#636e72', '#eaf1ff')} sx={{ textAlign: 'center' }}>
                       "This playground made building and iterating on React components so much faster. The live preview and export features are a game changer!"
                     </Typography>
                   </Paper>

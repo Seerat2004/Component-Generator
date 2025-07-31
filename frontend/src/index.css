@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +15,80 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark mode improvements */
+.dark {
+  color-scheme: dark;
+}
+
+/* Ensure proper text contrast in dark mode */
+.dark * {
+  color-scheme: dark;
+}
+
+/* Improve Material-UI components in dark mode */
+.dark .MuiPaper-root {
+  background-color: #232336 !important;
+  color: #fff !important;
+}
+
+.dark .MuiTextField-root .MuiInputBase-root {
+  background-color: #2a2a3a !important;
+  color: #fff !important;
+}
+
+.dark .MuiTextField-root .MuiInputLabel-root {
+  color: #eaf1ff !important;
+}
+
+.dark .MuiTextField-root .MuiInputBase-root fieldset {
+  border-color: #3a3a4a !important;
+}
+
+.dark .MuiTextField-root .MuiInputBase-root:hover fieldset {
+  border-color: #246bfd !important;
+}
+
+.dark .MuiTextField-root .MuiInputBase-root.Mui-focused fieldset {
+  border-color: #246bfd !important;
+}
+
+/* Improve button styling in dark mode */
+.dark .MuiButton-outlined {
+  border-color: #246bfd !important;
+  color: #246bfd !important;
+}
+
+.dark .MuiButton-outlined:hover {
+  background-color: rgba(36, 107, 253, 0.1) !important;
+  border-color: #1a4db8 !important;
+  color: #1a4db8 !important;
+}
+
+/* Improve chip styling in dark mode */
+.dark .MuiChip-root {
+  background-color: #2a2a3a !important;
+  color: #eaf1ff !important;
+}
+
+/* Improve alert styling in dark mode */
+.dark .MuiAlert-root {
+  background-color: #2a2a3a !important;
+  color: #fff !important;
+}
+
+/* Improve tab styling in dark mode */
+.dark .MuiTab-root {
+  color: #eaf1ff !important;
+}
+
+.dark .MuiTab-root.Mui-selected {
+  color: #246bfd !important;
+}
+
+.dark .MuiTabs-indicator {
+  background-color: #246bfd !important;
 }
 
 a {

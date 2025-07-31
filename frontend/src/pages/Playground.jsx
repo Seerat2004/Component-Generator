@@ -35,6 +35,10 @@ export default function Playground() {
   const [sessionId] = useState(`session_${Date.now()}`);
   const chatEndRef = useRef(null);
   const { user } = useAuthStore();
+  
+  // Get current theme mode from localStorage
+  const mode = localStorage.getItem('themeMode') || 'light';
+  const isDark = mode === 'dark';
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -196,7 +200,7 @@ export default function Playground() {
                   p: 2, 
                   minHeight: 300, 
                   mb: 2, 
-                  bgcolor: '#f8f9fa',
+                  bgcolor: isDark ? '#2a2a3a' : '#f8f9fa',
                   maxHeight: 400,
                   overflowY: 'auto'
                 }}
@@ -220,8 +224,8 @@ export default function Playground() {
                           sx={{
                             p: 1.5,
                             maxWidth: '80%',
-                            bgcolor: message.role === 'user' ? '#246bfd' : '#fff',
-                            color: message.role === 'user' ? '#fff' : 'text.primary',
+                            bgcolor: message.role === 'user' ? '#246bfd' : (isDark ? '#232336' : '#fff'),
+                            color: message.role === 'user' ? '#fff' : (isDark ? '#fff' : 'text.primary'),
                             borderRadius: 2
                           }}
                         >
@@ -235,7 +239,7 @@ export default function Playground() {
                     ))}
                     {isLoading && (
                       <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                        <Paper sx={{ p: 1.5, bgcolor: '#fff', borderRadius: 2 }}>
+                        <Paper sx={{ p: 1.5, bgcolor: isDark ? '#232336' : '#fff', borderRadius: 2 }}>
                           <CircularProgress size={20} />
                         </Paper>
                       </Box>

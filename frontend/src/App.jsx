@@ -22,12 +22,45 @@ const getDesignTokens = (mode) => ({
           primary: { main: '#246bfd' },
           background: { default: '#fff', paper: '#fff' },
           text: { primary: '#18191A', secondary: '#636e72' },
+          divider: '#eaf1ff',
         }
       : {
           primary: { main: '#246bfd' },
           background: { default: '#18191A', paper: '#232336' },
           text: { primary: '#fff', secondary: '#eaf1ff' },
+          divider: '#2a2a3a',
         }),
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          ...(mode === 'dark' && {
+            '&.MuiPaper-root': {
+              backgroundColor: '#232336',
+              color: '#fff',
+            },
+          }),
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          ...(mode === 'dark' && {
+            '&.MuiButton-outlined': {
+              borderColor: '#246bfd',
+              color: '#246bfd',
+              '&:hover': {
+                backgroundColor: 'rgba(36, 107, 253, 0.1)',
+                borderColor: '#1a4db8',
+                color: '#1a4db8',
+              },
+            },
+          }),
+        },
+      },
+    },
   },
 });
 
@@ -35,8 +68,23 @@ export default function App() {
   const [mode, setMode] = useState(() => localStorage.getItem('themeMode') || 'light');
   const { checkAuth } = useAuthStore();
 
+  // Initialize dark mode class on app load
+  useEffect(() => {
+    if (mode === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('themeMode', mode);
+    // Apply dark class to body for CSS styling
+    if (mode === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   }, [mode]);
 
   // Check authentication on app load
