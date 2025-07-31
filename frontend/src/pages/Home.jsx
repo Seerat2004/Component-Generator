@@ -62,7 +62,7 @@ export default function Home({ mode }) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       {/* Hero Section */}
-      <Box sx={{ bgcolor: sectionBg('#fff', '#18191A'), flex: 1, display: 'flex', alignItems: 'center', minHeight: 'calc(100vh - 80px)', width: '100vw' }}>
+      <Box sx={{ bgcolor: sectionBg('#fff', '#18191A'), flex: 1, display: 'flex', alignItems: 'center', minHeight: 'calc(100vh - 80px)', width: '100%' }}>
         <Container maxWidth="xl" sx={{ width: '100%', flex: 1, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'space-between', py: 8 }}>
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' }, justifyContent: 'center', textAlign: { xs: 'center', md: 'left' } }}>
             <motion.div initial="hidden" animate="visible" variants={fadeInUp} custom={0}>

@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   return (
-    <Box sx={{ position: 'relative', width: '100vw', overflow: 'hidden', py: 8 }}>
+    <Box sx={{ position: 'relative', width: '100%', overflow: 'hidden', py: { xs: 4, md: 8 } }}>
       <motion.div
         initial={{ backgroundPosition: '0% 50%' }}
         animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
@@ -62,7 +62,7 @@ export default function Login() {
       />
       <MeteorShower />
       <Box sx={{ position: 'relative', zIndex: 2, width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-        <Paper elevation={4} sx={{ p: 5, borderRadius: 4, minWidth: 340, maxWidth: 400, width: '100%', bgcolor: isDark ? '#232336' : '#fff', color: isDark ? '#fff' : '#18191A' }}>
+        <Paper elevation={4} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4, minWidth: { xs: 280, sm: 340 }, maxWidth: 400, width: '100%', bgcolor: isDark ? '#232336' : '#fff', color: isDark ? '#fff' : '#18191A', mx: { xs: 2, sm: 0 } }}>
           <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, textAlign: 'center', color: '#246bfd' }}>Login</Typography>
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>

@@ -156,7 +156,7 @@ export default function Playground() {
   };
 
   return (
-    <Box sx={{ width: '100vw', bgcolor: 'background.default', py: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.default', py: { xs: 4, md: 10 }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Container maxWidth="xl" sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -177,9 +177,9 @@ export default function Playground() {
           </Alert>
         )}
 
-        <Grid container columns={12} spacing={4} justifyContent="center" alignItems="flex-start" sx={{ width: '100%' }}>
+        <Grid container spacing={{ xs: 2, md: 4 }} justifyContent="center" alignItems="flex-start" sx={{ width: '100%' }}>
           {/* Chat Panel */}
-          <Grid sx={{ gridColumn: 'span 4' }}>
+          <Grid xs={12} md={4}>
             <Paper elevation={4} sx={{ p: 3, borderRadius: 4, minHeight: 600, bgcolor: 'background.paper', mb: 2 }}>
               <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                 <ChatIcon sx={{ color: '#246bfd' }} />

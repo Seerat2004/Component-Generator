@@ -73,9 +73,9 @@ export default function Contact() {
 
   return (
     <Box sx={{ 
-      width: '100vw', 
+      width: '100%', 
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      py: 12, 
+      py: { xs: 6, md: 12 }, 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
@@ -98,6 +98,7 @@ export default function Contact() {
         width: '100%', 
         display: 'flex', 
         flexDirection: 'column', 
+        px: { xs: 2, sm: 3, md: 4 },
         alignItems: 'center',
         textAlign: 'center',
         position: 'relative',
@@ -143,9 +144,9 @@ export default function Contact() {
             </Typography>
           </motion.div>
           
-          <Grid container spacing={6} sx={{ justifyContent: 'center' }}>
+          <Grid container spacing={{ xs: 3, md: 6 }} sx={{ justifyContent: 'center' }}>
             {/* Contact Form */}
-            <Grid item xs={12} lg={8}>
+            <Grid xs={12} lg={8}>
               <motion.div variants={fadeInUp} custom={2}>
                 <Paper elevation={8} sx={{ 
                   p: 6, 
@@ -413,7 +414,7 @@ export default function Contact() {
             </Grid>
 
             {/* Contact Information */}
-            <Grid item xs={12} lg={4}>
+            <Grid xs={12} lg={4}>
               <motion.div variants={fadeInUp} custom={3}>
                 <Stack spacing={4}>
                   <Paper elevation={8} sx={{ 
@@ -531,7 +532,7 @@ export default function Contact() {
                 gradient: 'linear-gradient(135deg, #10b981, #059669)'
               }
             ].map((option, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <Grid xs={12} md={4} key={index}>
                 <motion.div
                   variants={fadeInUp}
                   custom={5 + index}

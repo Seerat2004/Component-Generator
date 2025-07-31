@@ -30,9 +30,9 @@ export default function About({ mode }) {
   const isDark = mode === 'dark';
   return (
     <Box sx={{ 
-      width: '100vw', 
+      width: '100%', 
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      py: 12, 
+      py: { xs: 6, md: 12 }, 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
@@ -58,7 +58,8 @@ export default function About({ mode }) {
         alignItems: 'center',
         textAlign: 'center',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        px: { xs: 2, sm: 3, md: 4 }
       }}>
         
         {/* Hero Section */}
@@ -72,19 +73,19 @@ export default function About({ mode }) {
             background: 'linear-gradient(90deg, #ffffff, #f0f8ff)', 
             WebkitBackgroundClip: 'text', 
             WebkitTextFillColor: 'transparent', 
-            mb: 6,
-            fontSize: { xs: '2.5rem', md: '4rem' },
+            mb: { xs: 4, md: 6 },
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem', lg: '4rem' },
             lineHeight: 1.2,
             textShadow: '0 4px 8px rgba(0,0,0,0.1)'
           }}>
             About Component Generator
           </Typography>
           <Typography align="center" sx={{ 
-            mb: 8, 
-            fontSize: { xs: '1.1rem', md: '1.4rem' }, 
+            mb: { xs: 6, md: 8 }, 
+            fontSize: { xs: '1rem', sm: '1.1rem', md: '1.3rem', lg: '1.4rem' }, 
             maxWidth: 800,
             lineHeight: 1.6,
-            px: 2,
+            px: { xs: 1, sm: 2 },
             color: 'rgba(255,255,255,0.9)',
             fontWeight: 300
           }}>
@@ -106,10 +107,10 @@ export default function About({ mode }) {
                 color: '#fff',
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255,255,255,0.3)',
-                px: 4,
-                py: 2,
+                px: { xs: 3, md: 4 },
+                py: { xs: 1.5, md: 2 },
                 borderRadius: 3,
-                fontSize: '1.1rem',
+                fontSize: { xs: '1rem', md: '1.1rem' },
                 fontWeight: 600,
                 transition: 'all 0.3s ease',
                 '&:hover': {
@@ -125,19 +126,23 @@ export default function About({ mode }) {
         </motion.div>
 
         {/* Mission & Vision */}
-        <Box sx={{ mb: 12, px: 2, width: '100%' }}>
+        <Box sx={{ mb: { xs: 8, md: 12 }, px: { xs: 1, sm: 2 }, width: '100%' }}>
           <motion.div variants={fadeInUp} custom={1}>
-            <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' }, color: '#fff' }}>
+            <Typography variant="h3" align="center" fontWeight={700} sx={{ 
+              mb: { xs: 6, md: 8 }, 
+              fontSize: { xs: '1.8rem', sm: '2rem', md: '2.3rem', lg: '2.5rem' }, 
+              color: '#fff' 
+            }}>
               Our Mission & Vision
             </Typography>
           </motion.div>
           
-          <Grid container spacing={6}>
+          <Grid container spacing={{ xs: 3, md: 6 }}>
             <Grid xs={12} md={6}>
               <motion.div variants={fadeInUp} custom={2}>
                 <Paper elevation={8} sx={{ 
-                  p: 6, 
-                  borderRadius: 6, 
+                  p: { xs: 4, md: 6 }, 
+                  borderRadius: { xs: 4, md: 6 }, 
                   bgcolor: 'rgba(255,255,255,0.95)', 
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 60px rgba(0,0,0,0.1)', 
@@ -146,21 +151,21 @@ export default function About({ mode }) {
                   transition: 'all 0.4s ease',
                   border: '1px solid rgba(255,255,255,0.2)',
                   '&:hover': {
-                    transform: 'translateY(-12px) scale(1.02)',
+                    transform: { xs: 'none', md: 'translateY(-12px) scale(1.02)' },
                     boxShadow: '0 30px 80px rgba(0,0,0,0.15)'
                   }
                 }}>
-                  <Stack spacing={5}>
+                  <Stack spacing={{ xs: 3, md: 5 }}>
                     <Box sx={{ 
                       display: 'flex', 
                       flexDirection: 'column', 
                       alignItems: 'center', 
-                      gap: 3,
+                      gap: { xs: 2, md: 3 },
                       position: 'relative'
                     }}>
                       <Box sx={{
-                        width: 80,
-                        height: 80,
+                        width: { xs: 60, md: 80 },
+                        height: { xs: 60, md: 80 },
                         borderRadius: '50%',
                         bgcolor: 'linear-gradient(135deg, #246bfd, #1a4db8)',
                         display: 'flex',
@@ -169,19 +174,20 @@ export default function About({ mode }) {
                         boxShadow: '0 8px 25px rgba(36, 107, 253, 0.3)',
                         mb: 2
                       }}>
-                        <PsychologyIcon sx={{ fontSize: 40, color: '#fff' }} />
+                        <PsychologyIcon sx={{ fontSize: { xs: 30, md: 40 }, color: '#fff' }} />
                       </Box>
                       <Typography variant="h4" fontWeight={700} sx={{ 
                         background: 'linear-gradient(135deg, #246bfd, #1a4db8)',
                         WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
+                        WebkitTextFillColor: 'transparent',
+                        fontSize: { xs: '1.5rem', md: '2rem' }
                       }}>
                         Our Mission
                       </Typography>
                     </Box>
                     <Typography color="text.secondary" sx={{ 
                       lineHeight: 1.8, 
-                      fontSize: '1.1rem',
+                      fontSize: { xs: '1rem', md: '1.1rem' },
                       fontWeight: 400
                     }}>
                       To democratize React development by providing an AI-powered platform that enables developers of all skill levels to rapidly build, preview, and export high-quality React components and pages. We believe in making development faster, more intuitive, and more accessible.
@@ -193,8 +199,8 @@ export default function About({ mode }) {
             <Grid xs={12} md={6}>
               <motion.div variants={fadeInUp} custom={3}>
                 <Paper elevation={8} sx={{ 
-                  p: 6, 
-                  borderRadius: 6, 
+                  p: { xs: 4, md: 6 }, 
+                  borderRadius: { xs: 4, md: 6 }, 
                   bgcolor: 'rgba(255,255,255,0.95)', 
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 60px rgba(0,0,0,0.1)', 
@@ -203,21 +209,21 @@ export default function About({ mode }) {
                   transition: 'all 0.4s ease',
                   border: '1px solid rgba(255,255,255,0.2)',
                   '&:hover': {
-                    transform: 'translateY(-12px) scale(1.02)',
+                    transform: { xs: 'none', md: 'translateY(-12px) scale(1.02)' },
                     boxShadow: '0 30px 80px rgba(0,0,0,0.15)'
                   }
                 }}>
-                  <Stack spacing={5}>
+                  <Stack spacing={{ xs: 3, md: 5 }}>
                     <Box sx={{ 
                       display: 'flex', 
                       flexDirection: 'column', 
                       alignItems: 'center', 
-                      gap: 3,
+                      gap: { xs: 2, md: 3 },
                       position: 'relative'
                     }}>
                       <Box sx={{
-                        width: 80,
-                        height: 80,
+                        width: { xs: 60, md: 80 },
+                        height: { xs: 60, md: 80 },
                         borderRadius: '50%',
                         bgcolor: 'linear-gradient(135deg, #7c3aed, #5b21b6)',
                         display: 'flex',
@@ -226,19 +232,20 @@ export default function About({ mode }) {
                         boxShadow: '0 8px 25px rgba(124, 58, 237, 0.3)',
                         mb: 2
                       }}>
-                        <TrendingUpIcon sx={{ fontSize: 40, color: '#fff' }} />
+                        <TrendingUpIcon sx={{ fontSize: { xs: 30, md: 40 }, color: '#fff' }} />
                       </Box>
                       <Typography variant="h4" fontWeight={700} sx={{ 
                         background: 'linear-gradient(135deg, #7c3aed, #5b21b6)',
                         WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
+                        WebkitTextFillColor: 'transparent',
+                        fontSize: { xs: '1.5rem', md: '2rem' }
                       }}>
                         Our Vision
                       </Typography>
                     </Box>
                     <Typography color="text.secondary" sx={{ 
                       lineHeight: 1.8, 
-                      fontSize: '1.1rem',
+                      fontSize: { xs: '1rem', md: '1.1rem' },
                       fontWeight: 400
                     }}>
                       To become the leading AI-powered development platform that revolutionizes how developers create React applications. We envision a future where AI and human creativity work together seamlessly to build amazing digital experiences.
@@ -251,14 +258,18 @@ export default function About({ mode }) {
         </Box>
 
         {/* Key Features */}
-        <Box sx={{ mb: 12, px: 2, width: '100%' }}>
+        <Box sx={{ mb: { xs: 8, md: 12 }, px: { xs: 1, sm: 2 }, width: '100%' }}>
           <motion.div variants={fadeInUp} custom={4}>
-            <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' }, color: '#fff' }}>
+            <Typography variant="h3" align="center" fontWeight={700} sx={{ 
+              mb: { xs: 6, md: 8 }, 
+              fontSize: { xs: '1.8rem', sm: '2rem', md: '2.3rem', lg: '2.5rem' }, 
+              color: '#fff' 
+            }}>
               Key Features
             </Typography>
           </motion.div>
           
-          <Grid container spacing={5} sx={{ px: 2, justifyContent: 'center' }}>
+          <Grid container spacing={{ xs: 3, md: 5 }} sx={{ px: { xs: 1, sm: 2 }, justifyContent: 'center' }}>
             {[
               { 
                 icon: <CodeIcon />, 
@@ -293,12 +304,12 @@ export default function About({ mode }) {
                 <motion.div
                   variants={fadeInUp}
                   custom={5 + index}
-                  whileHover={{ y: -10, scale: 1.05 }}
+                  whileHover={{ y: { xs: 0, md: -10 }, scale: { xs: 1.02, md: 1.05 } }}
                   transition={{ duration: 0.3 }}
                 >
                   <Paper elevation={8} sx={{ 
-                    p: 5, 
-                    borderRadius: 6, 
+                    p: { xs: 3, md: 5 }, 
+                    borderRadius: { xs: 4, md: 6 }, 
                     textAlign: 'center', 
                     height: '100%', 
                     transition: 'all 0.4s ease',
@@ -323,29 +334,29 @@ export default function About({ mode }) {
                       transform: 'scaleX(1)'
                     },
                     '&:hover': { 
-                      transform: 'translateY(-12px) scale(1.02)',
+                      transform: { xs: 'translateY(-8px)', md: 'translateY(-12px) scale(1.02)' },
                       boxShadow: '0 30px 80px rgba(0,0,0,0.15)'
                     } 
                   }}>
                     <Box sx={{ 
-                      width: 80, 
-                      height: 80, 
+                      width: { xs: 60, md: 80 }, 
+                      height: { xs: 60, md: 80 }, 
                       borderRadius: '50%', 
                       background: feature.gradient,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       mx: 'auto',
-                      mb: 3,
+                      mb: { xs: 2, md: 3 },
                       boxShadow: `0 8px 25px ${feature.color}40`
                     }}>
-                      <Box sx={{ color: '#fff', fontSize: 36 }}>
+                      <Box sx={{ color: '#fff', fontSize: { xs: 28, md: 36 } }}>
                         {feature.icon}
                       </Box>
                     </Box>
                     <Typography variant="h5" fontWeight={700} sx={{ 
-                      mb: 3, 
-                      fontSize: '1.3rem',
+                      mb: { xs: 2, md: 3 }, 
+                      fontSize: { xs: '1.1rem', md: '1.3rem' },
                       background: feature.gradient,
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent'
@@ -354,7 +365,7 @@ export default function About({ mode }) {
                     </Typography>
                     <Typography color="text.secondary" variant="body1" sx={{ 
                       lineHeight: 1.7,
-                      fontSize: '1rem',
+                      fontSize: { xs: '0.9rem', md: '1rem' },
                       fontWeight: 400
                     }}>
                       {feature.desc}
@@ -367,17 +378,21 @@ export default function About({ mode }) {
         </Box>
 
         {/* Technology Stack */}
-        <Box sx={{ mb: 12, px: 2, width: '100%' }}>
+        <Box sx={{ mb: { xs: 8, md: 12 }, px: { xs: 1, sm: 2 }, width: '100%' }}>
           <motion.div variants={fadeInUp} custom={9}>
-            <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' }, color: '#fff' }}>
+            <Typography variant="h3" align="center" fontWeight={700} sx={{ 
+              mb: { xs: 6, md: 8 }, 
+              fontSize: { xs: '1.8rem', sm: '2rem', md: '2.3rem', lg: '2.5rem' }, 
+              color: '#fff' 
+            }}>
               Technology Stack
             </Typography>
           </motion.div>
           
           <motion.div variants={fadeInUp} custom={10}>
             <Paper elevation={8} sx={{ 
-              p: 8, 
-              borderRadius: 6, 
+              p: { xs: 4, md: 8 }, 
+              borderRadius: { xs: 4, md: 6 }, 
               bgcolor: 'rgba(255,255,255,0.95)',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
@@ -400,7 +415,7 @@ export default function About({ mode }) {
                 transform: 'scaleX(1)'
               }
             }}>
-                          <Grid container spacing={6} sx={{ justifyContent: 'center' }}>
+              <Grid container spacing={{ xs: 4, md: 6 }} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} md={6}>
                   <Box sx={{ 
                     textAlign: 'center',
@@ -411,15 +426,15 @@ export default function About({ mode }) {
                     height: '100%'
                   }}>
                     <Typography variant="h4" fontWeight={700} sx={{ 
-                      mb: 6, 
+                      mb: { xs: 4, md: 6 }, 
                       background: 'linear-gradient(135deg, #246bfd, #1a4db8)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
-                      fontSize: { xs: '1.8rem', md: '2.2rem' }
+                      fontSize: { xs: '1.5rem', sm: '1.8rem', md: '2rem', lg: '2.2rem' }
                     }}>
                       Frontend
                     </Typography>
-                    <Stack spacing={4} alignItems="center" sx={{ width: '100%' }}>
+                    <Stack spacing={{ xs: 2, md: 4 }} alignItems="center" sx={{ width: '100%' }}>
                       {['React 19', 'Material-UI', 'Framer Motion', 'Vite', 'Zustand'].map((tech, index) => (
                         <motion.div
                           key={index}
@@ -431,9 +446,9 @@ export default function About({ mode }) {
                             bgcolor: 'rgba(36, 107, 253, 0.1)', 
                             color: '#246bfd', 
                             fontWeight: 700,
-                            fontSize: '1.2rem',
-                            px: 5,
-                            py: 2,
+                            fontSize: { xs: '1rem', md: '1.2rem' },
+                            px: { xs: 3, md: 5 },
+                            py: { xs: 1, md: 2 },
                             borderRadius: 4,
                             border: '2px solid rgba(36, 107, 253, 0.2)',
                             boxShadow: '0 4px 15px rgba(36, 107, 253, 0.15)',
@@ -461,15 +476,15 @@ export default function About({ mode }) {
                     height: '100%'
                   }}>
                     <Typography variant="h4" fontWeight={700} sx={{ 
-                      mb: 6, 
+                      mb: { xs: 4, md: 6 }, 
                       background: 'linear-gradient(135deg, #7c3aed, #5b21b6)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
-                      fontSize: { xs: '1.8rem', md: '2.2rem' }
+                      fontSize: { xs: '1.5rem', sm: '1.8rem', md: '2rem', lg: '2.2rem' }
                     }}>
                       Backend
                     </Typography>
-                    <Stack spacing={4} alignItems="center" sx={{ width: '100%' }}>
+                    <Stack spacing={{ xs: 2, md: 4 }} alignItems="center" sx={{ width: '100%' }}>
                       {['Node.js', 'Express.js', 'MongoDB', 'JWT Authentication', 'RESTful APIs'].map((tech, index) => (
                         <motion.div
                           key={index}
@@ -481,9 +496,9 @@ export default function About({ mode }) {
                             bgcolor: 'rgba(124, 58, 237, 0.1)', 
                             color: '#7c3aed', 
                             fontWeight: 700,
-                            fontSize: '1.2rem',
-                            px: 5,
-                            py: 2,
+                            fontSize: { xs: '1rem', md: '1.2rem' },
+                            px: { xs: 3, md: 5 },
+                            py: { xs: 1, md: 2 },
                             borderRadius: 4,
                             border: '2px solid rgba(124, 58, 237, 0.2)',
                             boxShadow: '0 4px 15px rgba(124, 58, 237, 0.15)',
@@ -507,30 +522,34 @@ export default function About({ mode }) {
         </Box>
 
         {/* Statistics */}
-        <Box sx={{ mb: 12, px: 2, width: '100%' }}>
+        <Box sx={{ mb: { xs: 8, md: 12 }, px: { xs: 1, sm: 2 }, width: '100%' }}>
           <motion.div variants={fadeInUp} custom={11}>
-            <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' }, color: '#fff' }}>
+            <Typography variant="h3" align="center" fontWeight={700} sx={{ 
+              mb: { xs: 6, md: 8 }, 
+              fontSize: { xs: '1.8rem', sm: '2rem', md: '2.3rem', lg: '2.5rem' }, 
+              color: '#fff' 
+            }}>
               Platform Statistics
             </Typography>
           </motion.div>
           
-          <Grid container spacing={5} sx={{ px: 2, justifyContent: 'center' }}>
+          <Grid container spacing={{ xs: 2, md: 5 }} sx={{ px: { xs: 1, sm: 2 }, justifyContent: 'center' }}>
             {[
               { number: '35K+', label: 'Happy Users', color: '#246bfd', gradient: 'linear-gradient(135deg, #246bfd, #1a4db8)' },
               { number: '100K+', label: 'Components Generated', color: '#7c3aed', gradient: 'linear-gradient(135deg, #7c3aed, #5b21b6)' },
               { number: '99.9%', label: 'Uptime', color: '#10b981', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
               { number: '24/7', label: 'Support', color: '#f59e0b', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' }
             ].map((stat, index) => (
-              <Grid xs={6} md={3} key={index}>
+              <Grid xs={6} sm={6} md={3} key={index}>
                 <motion.div
                   variants={fadeInUp}
                   custom={12 + index}
-                  whileHover={{ y: -10, scale: 1.05 }}
+                  whileHover={{ y: { xs: 0, md: -10 }, scale: { xs: 1.02, md: 1.05 } }}
                   transition={{ duration: 0.3 }}
                 >
                   <Paper elevation={8} sx={{ 
-                    p: 5, 
-                    borderRadius: 6, 
+                    p: { xs: 3, md: 5 }, 
+                    borderRadius: { xs: 3, md: 6 }, 
                     textAlign: 'center', 
                     bgcolor: 'rgba(255,255,255,0.95)',
                     backdropFilter: 'blur(20px)',
@@ -554,7 +573,7 @@ export default function About({ mode }) {
                       transform: 'scaleX(1)'
                     },
                     '&:hover': { 
-                      transform: 'translateY(-12px) scale(1.02)',
+                      transform: { xs: 'translateY(-6px)', md: 'translateY(-12px) scale(1.02)' },
                       boxShadow: '0 30px 80px rgba(0,0,0,0.15)'
                     } 
                   }}>
@@ -563,13 +582,13 @@ export default function About({ mode }) {
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       mb: 2, 
-                      fontSize: { xs: '2.5rem', md: '3.5rem' },
+                      fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' },
                       textShadow: '0 4px 8px rgba(0,0,0,0.1)'
                     }}>
                       {stat.number}
                     </Typography>
                     <Typography color="text.secondary" fontWeight={600} sx={{ 
-                      fontSize: '1.2rem',
+                      fontSize: { xs: '1rem', md: '1.2rem' },
                       lineHeight: 1.4
                     }}>
                       {stat.label}
@@ -582,14 +601,18 @@ export default function About({ mode }) {
         </Box>
 
         {/* Team Section */}
-        <Box sx={{ mb: 12, px: 2, width: '100%' }}>
+        <Box sx={{ mb: { xs: 8, md: 12 }, px: { xs: 1, sm: 2 }, width: '100%' }}>
           <motion.div variants={fadeInUp} custom={16}>
-            <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' }, color: '#fff' }}>
+            <Typography variant="h3" align="center" fontWeight={700} sx={{ 
+              mb: { xs: 6, md: 8 }, 
+              fontSize: { xs: '1.8rem', sm: '2rem', md: '2.3rem', lg: '2.5rem' }, 
+              color: '#fff' 
+            }}>
               Meet Our Team
             </Typography>
           </motion.div>
           
-          <Grid container spacing={5} sx={{ px: 2, justifyContent: 'center' }}>
+          <Grid container spacing={{ xs: 3, md: 5 }} sx={{ px: { xs: 1, sm: 2 }, justifyContent: 'center' }}>
             {[
               { 
                 name: 'Muskan', 
@@ -613,16 +636,16 @@ export default function About({ mode }) {
                 gradient: 'linear-gradient(135deg, #10b981, #059669)'
               }
             ].map((member, index) => (
-              <Grid xs={12} md={4} key={index}>
+              <Grid xs={12} sm={6} md={4} key={index}>
                 <motion.div
                   variants={fadeInUp}
                   custom={17 + index}
-                  whileHover={{ y: -10, scale: 1.05 }}
+                  whileHover={{ y: { xs: 0, md: -10 }, scale: { xs: 1.02, md: 1.05 } }}
                   transition={{ duration: 0.3 }}
                 >
                   <Paper elevation={8} sx={{ 
-                    p: 5, 
-                    borderRadius: 6, 
+                    p: { xs: 3, md: 5 }, 
+                    borderRadius: { xs: 4, md: 6 }, 
                     textAlign: 'center', 
                     bgcolor: 'rgba(255,255,255,0.95)',
                     backdropFilter: 'blur(20px)',
@@ -646,21 +669,21 @@ export default function About({ mode }) {
                       transform: 'scaleX(1)'
                     },
                     '&:hover': { 
-                      transform: 'translateY(-12px) scale(1.02)',
+                      transform: { xs: 'translateY(-8px)', md: 'translateY(-12px) scale(1.02)' },
                       boxShadow: '0 30px 80px rgba(0,0,0,0.15)'
                     } 
                   }}>
                     <Avatar src={member.avatar} sx={{ 
-                      width: 120, 
-                      height: 120, 
+                      width: { xs: 80, md: 120 }, 
+                      height: { xs: 80, md: 120 }, 
                       mx: 'auto', 
-                      mb: 3, 
+                      mb: { xs: 2, md: 3 }, 
                       border: '4px solid rgba(255,255,255,0.3)',
                       boxShadow: '0 8px 25px rgba(0,0,0,0.1)'
                     }} />
                     <Typography variant="h5" fontWeight={700} sx={{ 
                       mb: 2, 
-                      fontSize: '1.4rem',
+                      fontSize: { xs: '1.2rem', md: '1.4rem' },
                       background: member.gradient,
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent'
@@ -668,19 +691,19 @@ export default function About({ mode }) {
                       {member.name}
                     </Typography>
                     <Typography color="text.secondary" sx={{ 
-                      mb: 3, 
-                      fontSize: '1.1rem',
+                      mb: { xs: 2, md: 3 }, 
+                      fontSize: { xs: '1rem', md: '1.1rem' },
                       fontWeight: 500
                     }}>
                       {member.role}
                     </Typography>
-                    <Stack direction="row" spacing={1.5} justifyContent="center" flexWrap="wrap">
+                    <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" sx={{ gap: { xs: 1, md: 1.5 } }}>
                       {member.skills.map((skill, skillIndex) => (
                         <Chip key={skillIndex} label={skill} size="medium" sx={{ 
                           bgcolor: 'rgba(36, 107, 253, 0.1)', 
                           color: '#246bfd',
                           fontWeight: 600,
-                          fontSize: '0.9rem',
+                          fontSize: { xs: '0.8rem', md: '0.9rem' },
                           border: '1px solid rgba(36, 107, 253, 0.2)',
                           transition: 'all 0.3s ease',
                           '&:hover': {
@@ -699,17 +722,21 @@ export default function About({ mode }) {
 
         {/* Timeline */}
         <motion.div variants={fadeInUp} custom={7} style={{ width: '100%' }}>
-          <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' }, color: 'text.primary' }}>
+          <Typography variant="h3" align="center" fontWeight={700} sx={{ 
+            mb: { xs: 6, md: 8 }, 
+            fontSize: { xs: '1.8rem', sm: '2rem', md: '2.3rem', lg: '2.5rem' }, 
+            color: 'text.primary' 
+          }}>
             Our Journey
           </Typography>
           <Paper elevation={4} sx={{ 
-            p: 6, 
-            borderRadius: 4, 
+            p: { xs: 4, md: 6 }, 
+            borderRadius: { xs: 3, md: 4 }, 
             bgcolor: 'background.paper',
             boxShadow: isDark ? '0 8px 32px 0 rgba(36, 107, 253, 0.2)' : '0 8px 32px 0 #246bfd15',
             textAlign: 'center'
           }}>
-            <Stack spacing={4}>
+            <Stack spacing={{ xs: 3, md: 4 }}>
               {[
                 { year: '2024', title: 'Project Inception', desc: 'Started with the vision to revolutionize React development', icon: <SchoolIcon /> },
                 { year: '2024', title: 'MVP Development', desc: 'Built the core platform with AI integration', icon: <CodeIcon /> },
@@ -718,32 +745,47 @@ export default function About({ mode }) {
               ].map((milestone, index) => (
                 <Box key={index} className="timeline-card" sx={{ 
                   display: 'flex', 
-                  alignItems: 'center', 
-                  gap: 4, 
-                  p: 3, 
+                  flexDirection: { xs: 'column', md: 'row' },
+                  alignItems: { xs: 'center', md: 'center' }, 
+                  gap: { xs: 2, md: 4 }, 
+                  p: { xs: 2, md: 3 }, 
                   borderRadius: 3, 
                   bgcolor: isDark ? '#2a2a3a' : '#fafbff', 
                   transition: 'all 0.3s ease', 
                   border: isDark ? '1px solid #3a3a4a' : '1px solid #eaf1ff',
+                  textAlign: { xs: 'center', md: 'left' },
                   '&:hover': { 
-                    transform: 'translateX(10px)',
+                    transform: { xs: 'translateY(-5px)', md: 'translateX(10px)' },
                     boxShadow: isDark ? '0 8px 25px rgba(0,0,0,0.3)' : '0 8px 25px rgba(36, 107, 253, 0.1)',
                     bgcolor: isDark ? '#232336' : '#f0f4ff'
                   } 
                 }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 100 }}>
-                    <Box sx={{ color: '#246bfd', mb: 2, fontSize: 40 }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    minWidth: { xs: 'auto', md: 100 },
+                    mb: { xs: 1, md: 0 }
+                  }}>
+                    <Box sx={{ color: '#246bfd', mb: 2, fontSize: { xs: 30, md: 40 } }}>
                       {milestone.icon}
                     </Box>
-                    <Typography variant="h5" fontWeight={700} color="primary">
+                    <Typography variant="h5" fontWeight={700} color="primary" sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
                       {milestone.year}
                     </Typography>
                   </Box>
-                  <Box sx={{ flex: 1, textAlign: 'left' }}>
-                    <Typography variant="h6" fontWeight={600} sx={{ mb: 2, fontSize: '1.2rem', color: 'text.primary' }}>
+                  <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
+                    <Typography variant="h6" fontWeight={600} sx={{ 
+                      mb: 2, 
+                      fontSize: { xs: '1.1rem', md: '1.2rem' }, 
+                      color: 'text.primary' 
+                    }}>
                       {milestone.title}
                     </Typography>
-                    <Typography color="text.secondary" sx={{ lineHeight: 1.6, fontSize: '1.1rem' }}>
+                    <Typography color="text.secondary" sx={{ 
+                      lineHeight: 1.6, 
+                      fontSize: { xs: '1rem', md: '1.1rem' } 
+                    }}>
                       {milestone.desc}
                     </Typography>
                   </Box>
