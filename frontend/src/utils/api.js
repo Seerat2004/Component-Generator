@@ -1,8 +1,34 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? process.env.VITE_API_URL || 'https://component-generator-cy7z.onrender.com/api'
-  : 'http://localhost:5000/api';
+// Fix the API URL - ensure it has proper format
+const getApiBaseUrl = () => {
+  if (process.env.NODE_ENV === 'production') {
+    const envUrl = process.env.VITE_API_URL;
+    if (envUrl) {
+      // Clean up the URL if it has formatting issues
+      let cleanUrl = envUrl.trim();
+      if (cleanUrl.startsWith('https:/') && !cleanUrl.startsWith('https://')) {
+        cleanUrl = cleanUrl.replace('https:/', 'https://');
+      }
+      // Remove any trailing slashes and add /api
+      cleanUrl = cleanUrl.replace(/\/+$/, '');
+      if (!cleanUrl.endsWith('/api')) {
+        cleanUrl = cleanUrl.endsWith('/') ? cleanUrl + 'api' : cleanUrl + '/api';
+      }
+      return cleanUrl;
+    }
+    return 'https://component-generator-cy7z.onrender.com/api';
+  }
+  return 'http://localhost:5000/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+// Debug logging
+console.log('🔧 API Configuration Debug:');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('VITE_API_URL:', process.env.VITE_API_URL);
+console.log('Final API_BASE_URL:', API_BASE_URL);
 
 // Create axios instance
 const api = axios.create({

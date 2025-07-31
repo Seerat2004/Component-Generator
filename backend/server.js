@@ -20,7 +20,7 @@ const corsOptions = {
     'http://localhost:5174',
     'https://component-generator-three.vercel.app',
     process.env.FRONTEND_URL
-  ].filter(Boolean),
+  ].filter(Boolean).map(url => url.replace(/\/$/, '')), // Remove trailing slashes
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true, // Needed for JWT cookies/sessions
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -70,13 +70,9 @@ app.get('/api/health', async (req, res) => {
         allowedOrigins: [
           'http://localhost:5173',
           'http://localhost:5174',
-          'https://component-generator-smoky.vercel.app',
-          'https://component-generator.vercel.app',
-          'https://component-generator-seerat2004s-projects.vercel.app',
-          'https://component-generator-4hdeiw2fw-seerat2004s-projects.vercel.app',
-          'https://component-generator-jmn81i5o5-seerat2004s-projects.vercel.app',
+          'https://component-generator-three.vercel.app',
           process.env.FRONTEND_URL
-        ].filter(Boolean)
+        ].filter(Boolean).map(url => url.replace(/\/$/, '')) // Remove trailing slashes
       }
     });
   } catch (error) {
