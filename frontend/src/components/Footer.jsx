@@ -11,16 +11,14 @@ export default function Footer({ mode }) {
         <Grid container columns={12} spacing={4}>
           <Grid sx={{ gridColumn: 'span 4' }}>
             <Stack spacing={2}>
-              <img 
-                src="https://acciojob.com/_next/static/media/acciojob-logo.6c1b7c2b.svg" 
-                alt="AccioJobs Logo" 
-                style={{ height: 32, filter: 'brightness(0) invert(1)' }} 
-              />
+              <Typography variant="h6" sx={{ fontWeight: 700, color: '#fff', letterSpacing: 1 }}>
+                Component Generator
+              </Typography>
               <Typography sx={{ color: '#eaf1ff', fontSize: 15 }}>
                 Build, preview, and export React components with AI. All your work, always saved.
               </Typography>
               <Typography sx={{ color: '#eaf1ff', fontSize: 13 }}>
-                © {new Date().getFullYear()} AccioJobs. All rights reserved.
+                © {new Date().getFullYear()} Component Generator. All rights reserved.
               </Typography>
             </Stack>
           </Grid>
@@ -42,7 +40,7 @@ export default function Footer({ mode }) {
           <Grid sx={{ gridColumn: 'span 4' }}>
             <Stack spacing={1}>
               <Typography sx={{ fontWeight: 700, color: '#fff', mb: 1 }}>Contact Us</Typography>
-              <Typography sx={{ color: '#fff', fontSize: 15 }}>contact@acciojobs.com</Typography>
+              <Typography sx={{ color: '#fff', fontSize: 15 }}>contact@componentgenerator.com</Typography>
               <Typography sx={{ color: '#fff', fontSize: 15 }}>+91 8595563221</Typography>
               <Stack direction="row" spacing={1} mt={1}>
                 <Button sx={{ minWidth: 0, p: 0 }}>

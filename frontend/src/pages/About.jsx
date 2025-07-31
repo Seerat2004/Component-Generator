@@ -76,7 +76,7 @@ export default function About() {
             lineHeight: 1.2,
             textShadow: '0 4px 8px rgba(0,0,0,0.1)'
           }}>
-            About AccioJobs Playground
+            About Component Generator
           </Typography>
           <Typography align="center" sx={{ 
             mb: 8, 
@@ -605,7 +605,7 @@ export default function About() {
                 gradient: 'linear-gradient(135deg, #7c3aed, #5b21b6)'
               },
               { 
-                name: 'AccioJobs', 
+                name: 'Component Generator', 
                 role: 'Development Team', 
                 avatar: 'https://randomuser.me/api/portraits/men/32.jpg', 
                 skills: ['Innovation', 'Quality', 'Support'],

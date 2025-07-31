@@ -40,7 +40,7 @@ export default function Home({ mode }) {
 
   const handleBookDemo = () => {
     // Open demo booking in new tab or navigate to contact page
-    window.open('mailto:demo@acciojobs.com?subject=Book Demo - AccioJobs Playground', '_blank');
+    window.open('mailto:demo@componentgenerator.com?subject=Book Demo - Component Generator', '_blank');
   };
 
   const handleViewComponents = () => {
@@ -144,7 +144,7 @@ export default function Home({ mode }) {
             Trusted by 20,000+ developers and teams.
           </Typography>
           <Stack direction="row" spacing={6} justifyContent="center" alignItems="center" sx={{ flexWrap: 'wrap' }}>
-            <motion.img src="https://dummyimage.com/100x40/8e44ad/fff&text=AccioJobs" alt="AccioJobs" style={{ opacity: 0.9 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 0.9, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} />
+                            <motion.img src="https://dummyimage.com/100x40/8e44ad/fff&text=ComponentGenerator" alt="Component Generator" style={{ opacity: 0.9 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 0.9, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} />
             <motion.img src="https://dummyimage.com/100x40/0984e3/fff&text=React" alt="React" style={{ opacity: 0.9 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 0.9, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }} />
             <motion.img src="https://dummyimage.com/100x40/e84393/fff&text=OpenAI" alt="OpenAI" style={{ opacity: 0.9 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 0.9, y: 0 }} transition={{ delay: 0.4, duration: 0.7 }} />
             <motion.img src="https://dummyimage.com/100x40/273c75/fff&text=MongoDB" alt="MongoDB" style={{ opacity: 0.9 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 0.9, y: 0 }} transition={{ delay: 0.5, duration: 0.7 }} />

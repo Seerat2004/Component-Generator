@@ -30,7 +30,7 @@ export default function Navbar({ mode, setMode }) {
     <AppBar position="static" color="transparent" elevation={0} sx={{ bgcolor: sectionText('#fff', '#232336'), boxShadow: '0 2px 8px 0 #eaf1ff', borderBottom: '1px solid #eaf1ff', py: 1 }}>
       <Toolbar sx={{ justifyContent: 'space-between', minHeight: 72 }}>
         <Stack direction="row" alignItems="center" spacing={2}>
-          <Typography variant="h6" sx={{ fontWeight: 700, color: sectionText('#18191A', '#fff'), letterSpacing: 1 }}>AccioJobs Playground</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 700, color: sectionText('#18191A', '#fff'), letterSpacing: 1 }}>Component Generator</Typography>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center">
           <Button sx={{ color: '#246bfd', fontWeight: 600, textTransform: 'none' }} onClick={() => navigate('/')}>Home</Button>

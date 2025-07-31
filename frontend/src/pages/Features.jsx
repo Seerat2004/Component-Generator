@@ -41,7 +41,7 @@ export default function Features() {
             Features
           </Typography>
           <Typography align="center" color="text.secondary" sx={{ mb: 6, fontSize: '1.2rem', maxWidth: 700 }}>
-            The AccioJobs Playground is a stateful, AI-driven micro-frontend platform. Authenticated users can generate, preview, tweak, and export React components or full pages. All chat history and code edits are preserved across logins.
+            The Component Generator is a stateful, AI-driven micro-frontend platform. Authenticated users can generate, preview, tweak, and export React components or full pages. All chat history and code edits are preserved across logins.
           </Typography>
         </motion.div>
         <Grid container columns={12} spacing={4} justifyContent="center" alignItems="center">

@@ -438,7 +438,7 @@ export default function Contact() {
                         <EmailIcon sx={{ color: '#246bfd', fontSize: 40 }} />
                         <Box sx={{ textAlign: 'center' }}>
                           <Typography fontWeight={600} sx={{ fontSize: '1.1rem', mb: 1 }}>Email</Typography>
-                          <Typography color="text.secondary" sx={{ fontSize: '1rem' }}>hello@acciojobs.com</Typography>
+                          <Typography color="text.secondary" sx={{ fontSize: '1rem' }}>hello@componentgenerator.com</Typography>
                         </Box>
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
@@ -452,7 +452,7 @@ export default function Contact() {
                         <LocationOnIcon sx={{ color: '#246bfd', fontSize: 40 }} />
                         <Box sx={{ textAlign: 'center' }}>
                           <Typography fontWeight={600} sx={{ fontSize: '1.1rem', mb: 1 }}>Location</Typography>
-                          <Typography color="text.secondary" sx={{ fontSize: '1rem' }}>AccioJobs HQ, Tech City</Typography>
+                          <Typography color="text.secondary" sx={{ fontSize: '1rem' }}>Component Generator HQ, Tech City</Typography>
                         </Box>
                       </Box>
                     </Stack>
@@ -510,7 +510,7 @@ export default function Contact() {
                 icon: <EmailIcon />, 
                 title: 'Email Support', 
                 desc: 'Get help via email', 
-                action: 'hello@acciojobs.com', 
+                action: 'hello@componentgenerator.com', 
                 color: '#246bfd',
                 gradient: 'linear-gradient(135deg, #246bfd, #1a4db8)'
               },

@@ -22,6 +22,7 @@ const corsOptions = {
     'https://component-generator.vercel.app',
     'https://component-generator-seerat2004s-projects.vercel.app',
     'https://component-generator-4hdeiw2fw-seerat2004s-projects.vercel.app',
+    'https://component-generator-jmn81i5o5-seerat2004s-projects.vercel.app',
     process.env.FRONTEND_URL
   ].filter(Boolean),
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -77,6 +78,7 @@ app.get('/api/health', async (req, res) => {
           'https://component-generator.vercel.app',
           'https://component-generator-seerat2004s-projects.vercel.app',
           'https://component-generator-4hdeiw2fw-seerat2004s-projects.vercel.app',
+          'https://component-generator-jmn81i5o5-seerat2004s-projects.vercel.app',
           process.env.FRONTEND_URL
         ].filter(Boolean)
       }
@@ -101,7 +103,7 @@ app.get('/api/cors-test', (req, res) => {
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
-    message: 'AccioJobs Backend API',
+    message: 'Component Generator Backend API',
     version: '1.0.0',
     status: 'running',
     timestamp: new Date().toISOString()
