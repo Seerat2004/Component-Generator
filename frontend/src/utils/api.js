@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? process.env.VITE_API_URL || 'https://acciojobs-backend.onrender.com/api'
+  ? process.env.VITE_API_URL || 'https://component-generator-cy7z.onrender.com/api'
   : 'http://localhost:5000/api';
 
 // Create axios instance
