@@ -15,7 +15,11 @@
    - Go to your Vercel project dashboard
    - Navigate to Settings → Environment Variables
    - Add: `VITE_API_URL` = `https://component-generator-cy7z.onrender.com/api`
+   - **Important**: Make sure there are no extra spaces or quotes around the value
    - Deploy the changes
+
+### Alternative: Remove Environment Variable
+If you're having trouble with the environment variable, you can remove it entirely. The frontend will automatically use the fallback URL: `https://component-generator-cy7z.onrender.com/api`
 
 ### Backend (Render)
 

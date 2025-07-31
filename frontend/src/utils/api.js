@@ -4,20 +4,33 @@ import axios from 'axios';
 const getApiBaseUrl = () => {
   if (process.env.NODE_ENV === 'production') {
     const envUrl = process.env.VITE_API_URL;
-    if (envUrl) {
-      // Clean up the URL if it has formatting issues
-      let cleanUrl = envUrl.trim();
-      if (cleanUrl.startsWith('https:/') && !cleanUrl.startsWith('https://')) {
-        cleanUrl = cleanUrl.replace('https:/', 'https://');
-      }
-      // Remove any trailing slashes and add /api
-      cleanUrl = cleanUrl.replace(/\/+$/, '');
-      if (!cleanUrl.endsWith('/api')) {
-        cleanUrl = cleanUrl.endsWith('/') ? cleanUrl + 'api' : cleanUrl + '/api';
-      }
-      return cleanUrl;
+    
+    // If environment variable is not set or is malformed, use fallback
+    if (!envUrl || envUrl.includes('VITE_API_URL=')) {
+      console.warn('⚠️ VITE_API_URL not set correctly, using fallback URL');
+      return 'https://component-generator-cy7z.onrender.com/api';
     }
-    return 'https://component-generator-cy7z.onrender.com/api';
+    
+    // Clean up the URL if it has formatting issues
+    let cleanUrl = envUrl.trim();
+    
+    // Fix common URL formatting issues
+    if (cleanUrl.startsWith('https:/') && !cleanUrl.startsWith('https://')) {
+      cleanUrl = cleanUrl.replace('https:/', 'https://');
+    }
+    
+    // Ensure it starts with http:// or https://
+    if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+      cleanUrl = 'https://' + cleanUrl;
+    }
+    
+    // Remove any trailing slashes and ensure it ends with /api
+    cleanUrl = cleanUrl.replace(/\/+$/, '');
+    if (!cleanUrl.endsWith('/api')) {
+      cleanUrl = cleanUrl.endsWith('/') ? cleanUrl + 'api' : cleanUrl + '/api';
+    }
+    
+    return cleanUrl;
   }
   return 'http://localhost:5000/api';
 };
@@ -57,6 +70,14 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error('🚨 API Error:', {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message
+    });
+    
     if (error.response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('token');
