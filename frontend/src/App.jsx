@@ -96,14 +96,14 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Navbar mode={mode} setMode={setMode} />
           <Box sx={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Home mode={mode} setMode={setMode} />} />
               <Route path="/features" element={<Features />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<About mode={mode} />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />

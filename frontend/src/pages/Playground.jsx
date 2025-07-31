@@ -301,27 +301,36 @@ export default function Playground() {
             <Paper elevation={4} sx={{ p: 3, borderRadius: 4, minHeight: 600, bgcolor: 'background.paper', mb: 2 }}>
               <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                 <PreviewIcon sx={{ color: '#7c3aed' }} />
-                <Typography fontWeight={700}>Live Preview</Typography>
+                <Typography fontWeight={700} sx={{ color: 'text.primary' }}>Live Preview</Typography>
                 <IconButton 
                   size="small" 
                   onClick={() => setGeneratedCode({ jsx: '', css: '' })}
-                  sx={{ ml: 'auto' }}
+                  sx={{ ml: 'auto', color: isDark ? '#eaf1ff' : 'text.primary' }}
                 >
                   <RefreshIcon />
                 </IconButton>
               </Stack>
               
               {/* Live Preview */}
-              <Box sx={{ minHeight: 200, bgcolor: '#f8f9fa', borderRadius: 2, mb: 2, p: 2 }}>
+              <Box sx={{ 
+                minHeight: 200, 
+                bgcolor: isDark ? '#2a2a3a' : '#f8f9fa', 
+                borderRadius: 2, 
+                mb: 2, 
+                p: 2,
+                border: isDark ? '1px solid #3a3a4a' : '1px solid #e1e5e9'
+              }}>
                 {generatedCode.jsx ? (
                   <Box sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center',
                     height: 180,
-                    color: 'text.secondary'
+                    color: isDark ? '#eaf1ff' : 'text.secondary'
                   }}>
-                    <Typography variant="h6">Component code successfully constructed! Refer to the code tabs below.</Typography>
+                    <Typography variant="h6" sx={{ textAlign: 'center', color: isDark ? '#eaf1ff' : 'text.secondary' }}>
+                      Component code successfully constructed! Refer to the code tabs below.
+                    </Typography>
                   </Box>
                 ) : (
                   <Box sx={{ 
@@ -329,20 +338,34 @@ export default function Playground() {
                     alignItems: 'center', 
                     justifyContent: 'center',
                     height: 180,
-                    color: 'text.secondary'
+                    color: isDark ? '#eaf1ff' : 'text.secondary'
                   }}>
-                    <Typography>Component preview will appear here after generation.</Typography>
+                    <Typography sx={{ textAlign: 'center', color: isDark ? '#eaf1ff' : 'text.secondary' }}>
+                      Component preview will appear here after generation.
+                    </Typography>
                   </Box>
                 )}
               </Box>
 
               {/* Code Tabs */}
               <Tabs value={activeTab} onChange={(e, newValue) => setActiveTab(newValue)} sx={{ mb: 2 }}>
-                <Tab label="JSX/TSX" />
-                <Tab label="CSS" />
+                <Tab label="JSX/TSX" sx={{ 
+                  color: isDark ? '#eaf1ff' : 'text.primary',
+                  '&.Mui-selected': { color: '#246bfd' }
+                }} />
+                <Tab label="CSS" sx={{ 
+                  color: isDark ? '#eaf1ff' : 'text.primary',
+                  '&.Mui-selected': { color: '#246bfd' }
+                }} />
               </Tabs>
               
-              <Paper variant="outlined" sx={{ p: 2, minHeight: 150, bgcolor: '#f8f9fa', mb: 2 }}>
+              <Paper variant="outlined" sx={{ 
+                p: 2, 
+                minHeight: 150, 
+                bgcolor: isDark ? '#2a2a3a' : '#f8f9fa', 
+                mb: 2,
+                borderColor: isDark ? '#3a3a4a' : '#e1e5e9'
+              }}>
                 {activeTab === 0 ? (
                   <Typography 
                     component="pre" 
@@ -350,7 +373,8 @@ export default function Playground() {
                       fontFamily: 'monospace', 
                       fontSize: '0.875rem',
                       whiteSpace: 'pre-wrap',
-                      wordBreak: 'break-word'
+                      wordBreak: 'break-word',
+                      color: isDark ? '#eaf1ff' : 'text.primary'
                     }}
                   >
                     {generatedCode.jsx || 'Generated JSX code will appear here...'}
@@ -362,7 +386,8 @@ export default function Playground() {
                       fontFamily: 'monospace', 
                       fontSize: '0.875rem',
                       whiteSpace: 'pre-wrap',
-                      wordBreak: 'break-word'
+                      wordBreak: 'break-word',
+                      color: isDark ? '#eaf1ff' : 'text.primary'
                     }}
                   >
                     {generatedCode.css || 'Generated CSS code will appear here...'}

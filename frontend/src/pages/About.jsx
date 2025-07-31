@@ -26,7 +26,8 @@ const fadeInUp = {
   }),
 };
 
-export default function About() {
+export default function About({ mode }) {
+  const isDark = mode === 'dark';
   return (
     <Box sx={{ 
       width: '100vw', 
@@ -132,7 +133,7 @@ export default function About() {
           </motion.div>
           
           <Grid container spacing={6}>
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <motion.div variants={fadeInUp} custom={2}>
                 <Paper elevation={8} sx={{ 
                   p: 6, 
@@ -189,7 +190,7 @@ export default function About() {
                 </Paper>
               </motion.div>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <motion.div variants={fadeInUp} custom={3}>
                 <Paper elevation={8} sx={{ 
                   p: 6, 
@@ -288,7 +289,7 @@ export default function About() {
                 gradient: 'linear-gradient(135deg, #7c3aed, #5b21b6)'
               }
             ].map((feature, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
+              <Grid xs={12} sm={6} md={3} key={index}>
                 <motion.div
                   variants={fadeInUp}
                   custom={5 + index}
@@ -400,7 +401,7 @@ export default function About() {
               }
             }}>
                           <Grid container spacing={6} sx={{ justifyContent: 'center' }}>
-                <Grid item xs={12} md={6}>
+                <Grid xs={12} md={6}>
                   <Box sx={{ 
                     textAlign: 'center',
                     display: 'flex',
@@ -450,7 +451,7 @@ export default function About() {
                     </Stack>
                   </Box>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid xs={12} md={6}>
                   <Box sx={{ 
                     textAlign: 'center',
                     display: 'flex',
@@ -520,7 +521,7 @@ export default function About() {
               { number: '99.9%', label: 'Uptime', color: '#10b981', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
               { number: '24/7', label: 'Support', color: '#f59e0b', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' }
             ].map((stat, index) => (
-              <Grid item xs={6} md={3} key={index}>
+              <Grid xs={6} md={3} key={index}>
                 <motion.div
                   variants={fadeInUp}
                   custom={12 + index}
@@ -612,7 +613,7 @@ export default function About() {
                 gradient: 'linear-gradient(135deg, #10b981, #059669)'
               }
             ].map((member, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <Grid xs={12} md={4} key={index}>
                 <motion.div
                   variants={fadeInUp}
                   custom={17 + index}
@@ -698,14 +699,14 @@ export default function About() {
 
         {/* Timeline */}
         <motion.div variants={fadeInUp} custom={7} style={{ width: '100%' }}>
-          <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' } }}>
+          <Typography variant="h3" align="center" fontWeight={700} sx={{ mb: 8, fontSize: { xs: '2rem', md: '2.5rem' }, color: 'text.primary' }}>
             Our Journey
           </Typography>
           <Paper elevation={4} sx={{ 
             p: 6, 
             borderRadius: 4, 
             bgcolor: 'background.paper',
-            boxShadow: '0 8px 32px 0 #246bfd15',
+            boxShadow: isDark ? '0 8px 32px 0 rgba(36, 107, 253, 0.2)' : '0 8px 32px 0 #246bfd15',
             textAlign: 'center'
           }}>
             <Stack spacing={4}>
@@ -715,7 +716,21 @@ export default function About() {
                 { year: '2024', title: 'Beta Launch', desc: 'Released to early adopters and gathered feedback', icon: <WorkIcon /> },
                 { year: '2024', title: 'Public Launch', desc: 'Opened the platform to all developers worldwide', icon: <TrendingUpIcon /> }
               ].map((milestone, index) => (
-                <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 4, p: 3, borderRadius: 3, bgcolor: '#fafbff', transition: 'transform 0.2s ease', '&:hover': { transform: 'translateX(10px)' } }}>
+                <Box key={index} className="timeline-card" sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 4, 
+                  p: 3, 
+                  borderRadius: 3, 
+                  bgcolor: isDark ? '#2a2a3a' : '#fafbff', 
+                  transition: 'all 0.3s ease', 
+                  border: isDark ? '1px solid #3a3a4a' : '1px solid #eaf1ff',
+                  '&:hover': { 
+                    transform: 'translateX(10px)',
+                    boxShadow: isDark ? '0 8px 25px rgba(0,0,0,0.3)' : '0 8px 25px rgba(36, 107, 253, 0.1)',
+                    bgcolor: isDark ? '#232336' : '#f0f4ff'
+                  } 
+                }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 100 }}>
                     <Box sx={{ color: '#246bfd', mb: 2, fontSize: 40 }}>
                       {milestone.icon}
@@ -725,7 +740,7 @@ export default function About() {
                     </Typography>
                   </Box>
                   <Box sx={{ flex: 1, textAlign: 'left' }}>
-                    <Typography variant="h6" fontWeight={600} sx={{ mb: 2, fontSize: '1.2rem' }}>
+                    <Typography variant="h6" fontWeight={600} sx={{ mb: 2, fontSize: '1.2rem', color: 'text.primary' }}>
                       {milestone.title}
                     </Typography>
                     <Typography color="text.secondary" sx={{ lineHeight: 1.6, fontSize: '1.1rem' }}>

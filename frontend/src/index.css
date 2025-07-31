@@ -91,6 +91,28 @@
   background-color: #246bfd !important;
 }
 
+/* Improve Live Preview section in dark mode */
+.dark .MuiPaper-root {
+  background-color: #232336 !important;
+  color: #fff !important;
+}
+
+/* Improve code display in dark mode */
+.dark pre {
+  color: #eaf1ff !important;
+}
+
+/* Improve timeline cards in dark mode */
+.dark .timeline-card {
+  background-color: #2a2a3a !important;
+  border-color: #3a3a4a !important;
+}
+
+.dark .timeline-card:hover {
+  background-color: #232336 !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
