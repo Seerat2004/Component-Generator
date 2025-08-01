@@ -54,7 +54,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true, // ✅ Needed for JWT cookies/sessions
-  timeout: 10000, // 10 second timeout
+  timeout: 30000, // 30 second timeout (increased from 10 seconds)
 });
 
 // Enhanced request interceptor

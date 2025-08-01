@@ -80,12 +80,20 @@ export default function Signup() {
     e.preventDefault();
     console.log('🚀 Starting signup process...');
     
-    const result = await signup(name, email, password);
-    console.log('📝 Signup result:', result);
+    // Show loading state immediately
+    if (loading) return; // Prevent multiple submissions
     
-    if (result.success) {
-      const from = location.state?.from?.pathname || '/';
-      navigate(from, { replace: true });
+    try {
+      const result = await signup(name, email, password);
+      console.log('📝 Signup result:', result);
+      
+      if (result.success) {
+        const from = location.state?.from?.pathname || '/';
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      console.error('❌ Signup error:', error);
+      // Error is already handled by the auth store
     }
   };
 

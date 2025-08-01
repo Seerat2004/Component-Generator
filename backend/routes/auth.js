@@ -17,9 +17,9 @@ router.post('/signup', async (req, res) => {
 
     const { name, email, password } = req.body;
 
-    // Enhanced validation
-    if (!name || !email || !password) {
-      console.log('❌ Missing required fields:', { name: !!name, email: !!email, password: !!password });
+    // Quick validation
+    if (!name?.trim() || !email?.trim() || !password?.trim()) {
+      console.log('❌ Missing required fields');
       return res.status(400).json({
         success: false,
         message: 'All fields are required: name, email, and password'
@@ -45,8 +45,8 @@ router.post('/signup', async (req, res) => {
       });
     }
 
-    // Check if user already exists
-    const userExists = await User.findOne({ email: email.toLowerCase() });
+    // Check if user already exists (optimized query)
+    const userExists = await User.findOne({ email: email.toLowerCase().trim() }).select('_id').lean();
     if (userExists) {
       console.log('❌ User already exists:', email);
       return res.status(400).json({
@@ -55,8 +55,8 @@ router.post('/signup', async (req, res) => {
       });
     }
 
-    // Create user
-    console.log('✅ Creating user with data:', { name, email, password: '***' });
+    // Create user with optimized data
+    console.log('✅ Creating user with data:', { name: name.trim(), email: email.toLowerCase().trim(), password: '***' });
     
     const user = await User.create({
       name: name.trim(),
@@ -70,36 +70,36 @@ router.post('/signup', async (req, res) => {
       email: user.email 
     });
 
-    if (user) {
-      const token = generateToken(user._id);
-      
-      // Enhanced cookie settings for deployment
-      const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // true in production
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        path: '/'
-      };
+    // Generate token
+    const token = generateToken(user._id);
+    
+    // Enhanced cookie settings for deployment
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: '/'
+    };
 
-      console.log('🍪 Setting cookie with options:', cookieOptions);
-      
-      // ✅ Set HTTP-only cookie for better security
-      res.cookie('token', token, cookieOptions);
+    console.log('🍪 Setting cookie with options:', cookieOptions);
+    
+    // Set HTTP-only cookie
+    res.cookie('token', token, cookieOptions);
 
-      const responseData = {
-        success: true,
-        data: {
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          token: token // Still include in response for client-side storage
-        }
-      };
+    const responseData = {
+      success: true,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token: token
+      }
+    };
 
-      console.log('✅ Signup successful, sending response');
-      res.status(201).json(responseData);
-    }
+    console.log('✅ Signup successful, sending response');
+    res.status(201).json(responseData);
+    
   } catch (error) {
     console.error('💥 Signup error:', {
       message: error.message,
