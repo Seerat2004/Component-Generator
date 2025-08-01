@@ -9,27 +9,62 @@ const router = express.Router();
 // @access  Public
 router.post('/signup', async (req, res) => {
   try {
+    console.log('📝 Signup request received:', {
+      body: { ...req.body, password: '***' },
+      origin: req.headers.origin,
+      userAgent: req.headers['user-agent']
+    });
+
     const { name, email, password } = req.body;
 
-    // Check if user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
+    // Enhanced validation
+    if (!name || !email || !password) {
+      console.log('❌ Missing required fields:', { name: !!name, email: !!email, password: !!password });
       return res.status(400).json({
         success: false,
-        message: 'User already exists'
+        message: 'All fields are required: name, email, and password'
+      });
+    }
+
+    // Email format validation
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      console.log('❌ Invalid email format:', email);
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid email address'
+      });
+    }
+
+    // Password length validation
+    if (password.length < 6) {
+      console.log('❌ Password too short');
+      return res.status(400).json({
+        success: false,
+        message: 'Password must be at least 6 characters long'
+      });
+    }
+
+    // Check if user already exists
+    const userExists = await User.findOne({ email: email.toLowerCase() });
+    if (userExists) {
+      console.log('❌ User already exists:', email);
+      return res.status(400).json({
+        success: false,
+        message: 'User with this email already exists'
       });
     }
 
     // Create user
-    console.log('Creating user with data:', { name, email, password: '***' });
+    console.log('✅ Creating user with data:', { name, email, password: '***' });
     
     const user = await User.create({
-      name,
-      email,
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
       password
     });
 
-    console.log('User created successfully:', { 
+    console.log('✅ User created successfully:', { 
       _id: user._id, 
       name: user.name, 
       email: user.email 
@@ -38,15 +73,21 @@ router.post('/signup', async (req, res) => {
     if (user) {
       const token = generateToken(user._id);
       
-      // ✅ Set HTTP-only cookie for better security
-      res.cookie('token', token, {
+      // Enhanced cookie settings for deployment
+      const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // true in production
-        sameSite: 'none', // Required for cross-origin requests
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-      });
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        path: '/'
+      };
 
-      res.status(201).json({
+      console.log('🍪 Setting cookie with options:', cookieOptions);
+      
+      // ✅ Set HTTP-only cookie for better security
+      res.cookie('token', token, cookieOptions);
+
+      const responseData = {
         success: true,
         data: {
           _id: user._id,
@@ -54,14 +95,39 @@ router.post('/signup', async (req, res) => {
           email: user.email,
           token: token // Still include in response for client-side storage
         }
-      });
+      };
+
+      console.log('✅ Signup successful, sending response');
+      res.status(201).json(responseData);
     }
   } catch (error) {
-    console.error('Signup error:', error);
+    console.error('💥 Signup error:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
+    // Handle specific MongoDB errors
+    if (error.name === 'ValidationError') {
+      const validationErrors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: validationErrors
+      });
+    }
+    
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: 'User with this email already exists'
+      });
+    }
+    
     res.status(500).json({
       success: false,
-      message: 'Server error',
-      error: error.message
+      message: 'Server error during signup',
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
     });
   }
 });

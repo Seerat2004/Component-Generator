@@ -13,17 +13,34 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser()); // ✅ Parse cookies for JWT authentication
 
-// ✅ Proper CORS configuration for Vercel frontend
+// ✅ Enhanced CORS configuration for deployment
 const corsOptions = {
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'https://component-generator-three.vercel.app',
-    process.env.FRONTEND_URL
-  ].filter(Boolean).map(url => url.replace(/\/$/, '')), // Remove trailing slashes
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:3000',
+      'https://component-generator-three.vercel.app',
+      'https://component-generator.vercel.app',
+      process.env.FRONTEND_URL
+    ].filter(Boolean).map(url => url.replace(/\/$/, '')); // Remove trailing slashes
+    
+    // Check if origin is allowed
+    if (allowedOrigins.includes(origin) || allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+      callback(null, true);
+    } else {
+      console.log('🚫 CORS blocked origin:', origin);
+      console.log('✅ Allowed origins:', allowedOrigins);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true, // Needed for JWT cookies/sessions
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 };
 
 app.use(cors(corsOptions));
@@ -53,7 +70,38 @@ app.use('/api/auth', authRoutes);
 app.use('/api/session', sessionRoutes);
 app.use('/api/ai', aiRoutes);
 
-// Health check endpoint
+// Route debugging endpoint
+app.get('/api/routes', (req, res) => {
+  const routes = [];
+  
+  // Get all registered routes
+  app._router.stack.forEach(middleware => {
+    if (middleware.route) {
+      // Routes registered directly on the app
+      const path = middleware.route.path;
+      const methods = Object.keys(middleware.route.methods);
+      routes.push({ path, methods });
+    } else if (middleware.name === 'router') {
+      // Router middleware
+      middleware.handle.stack.forEach(handler => {
+        if (handler.route) {
+          const path = middleware.regexp.source.replace('^\\/','').replace('\\/?(?=\\/|$)','');
+          const fullPath = `/api/${path}${handler.route.path}`;
+          const methods = Object.keys(handler.route.methods);
+          routes.push({ path: fullPath, methods });
+        }
+      });
+    }
+  });
+  
+  res.json({
+    message: 'Available routes',
+    routes: routes,
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Enhanced health check endpoint
 app.get('/api/health', async (req, res) => {
   try {
     const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
@@ -70,9 +118,15 @@ app.get('/api/health', async (req, res) => {
         allowedOrigins: [
           'http://localhost:5173',
           'http://localhost:5174',
+          'http://localhost:3000',
           'https://component-generator-three.vercel.app',
+          'https://component-generator.vercel.app',
           process.env.FRONTEND_URL
         ].filter(Boolean).map(url => url.replace(/\/$/, '')) // Remove trailing slashes
+      },
+      cookies: {
+        enabled: true,
+        secure: process.env.NODE_ENV === 'production'
       }
     });
   } catch (error) {
@@ -81,6 +135,25 @@ app.get('/api/health', async (req, res) => {
       message: error.message
     });
   }
+});
+
+// Signup test endpoint
+app.post('/api/test-signup', (req, res) => {
+  console.log('🧪 Test signup endpoint called');
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+  console.log('Origin:', req.headers.origin);
+  
+  res.json({
+    success: true,
+    message: 'Test signup endpoint working',
+    receivedData: {
+      headers: req.headers,
+      body: req.body,
+      origin: req.headers.origin,
+      timestamp: new Date().toISOString()
+    }
+  });
 });
 
 // CORS test endpoint
